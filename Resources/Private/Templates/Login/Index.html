@@ -1,0 +1,44 @@
+<f:comment>Hier wird die das Layout welches verwendet werden soll Spezifiziert</f:comment>
+<f:layout name="Login" />
+
+<f:section name="Content">
+
+    <f:comment>durch diesen ViewHelper werden flashmessages angezeigt!</f:comment>
+    <f:flashMessages />
+
+    <f:comment>
+        Hier wird gefragt ob ein der Userer schon eingeloggt ist oder nicht (und welche Rolle er hat)
+        Anhand dessen wird bestimmt was dem User Angezeigt wird
+    </f:comment>
+
+    <f:comment>Das Logo, Beispiel wia man via fluid ein bild einfügt</f:comment>
+    <div id="logo">
+        <img src="Resources/Public/images/login/Logo_MP_Login.png" />
+    </div>
+
+    <div id="content">
+        <f:security.ifHasRole role="BBS.ConnectYou:Client">
+            <f:then>
+                <f:link.action action="logout" controller="Login">Logout</f:link.action>
+            </f:then>
+            <f:else>
+
+                <f:comment>Die LoginForm wird dargestellt</f:comment>
+                <f:form action="authenticate" method="POST" name="loginform" id="loginformular">
+
+                    <f:comment>Textfeld für den User, Der Name ist wichtig damit die POST-Parameter stimmen.</f:comment>
+                    <f:form.textfield id="user" name="__authentication[TYPO3][Flow][Security][Authentication][Token][UsernamePassword][username]" />
+
+                    <f:comment>Passwort des Users, Der Name ist wichtig damit die POST-Parameter stimmen.</f:comment>
+                    <f:form.password id="pass" name="__authentication[TYPO3][Flow][Security][Authentication][Token][UsernamePassword][password]" />
+
+                    <f:comment>Login Button</f:comment>
+                    <f:form.submit value="Connect You" class="btn btn-primary btn-lg" id="loginbutton"/>
+                </f:form>
+
+                <f:comment>Der Registrierungslink, bringt einen weiter zur Registrierungsform</f:comment>
+                <div id="register"><f:link.action action="register" controller="Login">Registrieren</f:link.action></div>
+            </f:else>
+        </f:security.ifHasRole>
+    </div>
+</f:section>

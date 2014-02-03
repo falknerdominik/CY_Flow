@@ -1,0 +1,21 @@
+<f:layout name="Login" />
+
+<f:section name="Content">
+
+    <f:flashMessages />
+
+    <f:form action="create" controller="Login" method="post" name="loginform">
+        <label>User:</label><f:form.textfield name="name" />
+        <label>Pass:</label><f:form.password name="pass" />
+        <label>Pass repeat:</label><f:form.password name="pass2" />
+        <label>Firmenname:</label><f:form.textfield name="companyName" />
+        <label>Postleitzahl:</label><f:form.textfield name="plz" />
+        <label>Stadt:</label><f:form.textfield name="city" />
+        <label>Straße:</label><f:form.textfield name="street" />
+        <label>Straßennummer:</label><f:form.textfield name="streetNumber" />
+        <label>Telefonnummer:</label><f:form.textfield name="telephone" />
+        <label>E-Mail:</label><f:form.textfield name="email" />
+        <f:form.submit value="Login" />
+    </f:form>
+
+</f:section>

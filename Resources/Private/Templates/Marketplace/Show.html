@@ -1,0 +1,20 @@
+<f:layout name="Marketplace" />
+
+<f:section name="Title">Show project"{project.name}"</f:section>
+
+
+
+<f:section name="Content">
+    <f:flashMessages />
+
+    <div id="projects">
+        <div id="show">
+            <img src="http://placehold.it/100x100" alt="projectIMG" />
+
+            <f:render partial="Marketplace/Properties" arguments="{project:project}" />
+
+
+            <f:link.action action="index">Zurück</f:link.action><br />
+        </div>
+    </div>
+</f:section>

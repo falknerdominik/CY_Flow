@@ -1,0 +1,29 @@
+<h1>{project.name}</h1>
+<hr />
+<h6>{project.type}</h6>
+<h3> Beschreibung </h3>
+<p>{project.description}</p>
+
+<f:if condition="<f:count>{project.team}</f:count>">
+    <f:then>
+	    <h3> Teammitglieder </h3>
+        <ol>
+            <f:for each="{project.team}" as="student">
+                <li>{student}</li>
+            </f:for>
+        </ol>
+	</f:then>
+</f:if>
+
+<f:comment>Wenn ein Client Vorhanden ist</f:comment>
+<f:if condition="{project.client}">
+    <f:then>
+        <h3> Auftraggeber </h3>
+        <ul>
+            <li>{project.client.name}</li>
+            <li>{project.client.email}</li>
+            <li>{project.client.telephone}</li>
+        </ul>
+    </f:then>
+</f:if>
+

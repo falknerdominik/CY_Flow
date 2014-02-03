@@ -1,0 +1,43 @@
+<f:debug>Hier wird der Namespace eingebunden um die Eigenen Viewhelper verwenden zu können</f:debug>
+{namespace CY=BBS\ConnectYou\ViewHelpers}
+
+<f:layout name="Pinboard" />
+
+<f:section name="Content">
+
+    <f:security.ifHasRole role="BBS.ConnectYou:Client">
+        <f:then>
+            <CY:widget>{project.widgetsPublic}</CY:widget>
+        </f:then>
+        <f:else>
+            <CY:widget>{project.widgetsPrivate}</CY:widget>
+        </f:else>
+    </f:security.ifHasRole>
+
+
+
+
+
+    <div id="widgetmenu">
+
+        <div id="aufklappen">
+            <i id="move"> << </i>
+        </div>
+        <div id="aufklappen_innen">
+            <p>WIDGETS</p>
+        </div>
+        <ul>
+            <li id="todo">Todo-List</li>
+            <li id="document">Document</li>
+            <li id="milestone">MileStone</li>
+        </ul>
+    </div>
+
+    <div id="content" class="ui-sortable">
+    </div>
+
+    <f:comment>Hier werden die Widgets mit eigenen ViewHelper gerendert</f:comment>
+
+
+
+</f:section>

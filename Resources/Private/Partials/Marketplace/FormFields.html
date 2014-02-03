@@ -1,0 +1,25 @@
+<label for="name">Name</label><br />
+<f:form.textfield property="name" /><br />
+
+<label for="description">Beschreibung</label><br />
+<f:form.textarea property="description" /><br />
+
+<label for="type">Typ</label><br />
+<f:form.textfield property="type" /><br />
+
+<f:security.ifHasRole role="BBS.ConnectYou:Client">
+    <f:then>
+        <f:form.textfield value="{client}" property="client" type="hidden"/>
+    </f:then>
+</f:security.ifHasRole>
+
+
+<f:security.ifHasRole role="BBS.ConnectYou:Teacher">
+    <f:then>
+        <label for="team">Team</label><br />
+        <f:form.select name="team[]" property="team" options="{students}" multiple="multiple" optionValueField="{student}" optionLabelField="name" /><br />
+
+        <label for="client">Client</label><br />
+        <f:form.select name="client" property="client" options="{clients}" optionValueField="{client}" optionLabelField="name" /><br />
+    </f:then>
+</f:security.ifHasRole>

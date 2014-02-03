@@ -1,0 +1,54 @@
+<f:layout name="Marketplace" />
+
+<f:section name="Content">
+
+    <div id="projectnavigation">
+        <f:security.ifHasRole role="BBS.ConnectYou:Client">
+            <f:then>
+                <f:link.action action="new">+ Projekt hinzufügen</f:link.action>
+            </f:then>
+        </f:security.ifHasRole>
+    </div>
+    <hr>
+
+   <!-- <f:for each="{projects}" as="project">
+        <f:debug>{project}</f:debug>
+    </f:for>-->
+
+   <f:if condition="<f:count>{projects}</f:count>">
+        <f:then>
+
+            <div id="projects">
+                <f:flashMessages />
+                <f:for each="{projects}" as="project">
+
+                    <div class="col-md-2 col-md-offset-1">
+
+                        <img src="http://placehold.it/100x100" alt="projectIMG" />
+                        <h4>{project.name}</h4>
+                        <hr />
+                        <h6>{project.type}</h6>
+                        <p><f:format.crop maxCharacters="229">{project.description}...</f:format.crop></p>
+                        <p><f:link.action action="show" arguments="{project : project}"> >> Mehr</f:link.action></p>
+
+                        <f:security.ifHasRole role="BBS.ConnectYou:Teacher">
+                            <f:then>
+                                <span id="delete"><f:link.action action="delete" arguments="{project : project}">x</f:link.action></span>
+                                <span id="edit"><f:link.action action="edit" arguments="{project : project}">e</f:link.action></span>
+                            </f:then>
+                        </f:security.ifHasRole>
+
+                    </div>
+                </f:for>
+            </div>
+
+        </f:then>
+        <f:else>
+
+            <p>Noch keine Projekte vorhanden</p>
+
+        </f:else>
+   </f:if>
+
+
+</f:section>

@@ -1,0 +1,36 @@
+<div id="head" xmlns:f="http://www.w3.org/1999/html">
+
+    <div id="leiste"></div>
+
+    <div id="logo">
+
+            <f:comment>
+                Prüft ob ein Projekt dem User zugeteilt ist und zeigt den Jeweiligen Link an
+                ("zum Marketplace" wird nur angezigt auf der Pinnwand d.h. dort ist {userproject} == NULL
+            </f:comment>
+            <f:if condition="{userproject}">
+                <f:then>
+                    <f:link.action action="index" controller="Pinboard" arguments="{project : userproject}">Pinnwand</f:link.action>
+                </f:then>
+                <f:else>
+                    <f:link.action action="index" controller="Marketplace">Marktplatz</f:link.action>
+
+                    <f:comment>Wenn der User ein Student ist wird zusätzlich ein Link zum Zeitmanagement angezeigt</f:comment>
+                    <f:if condition="{isStudent}">
+                        <f:then>
+                            <br /><f:link.action action="assignments" controller="Pinboard" arguments="{project : project}">Zeitmanagement</f:link.action>
+                        </f:then>
+                    </f:if>
+                </f:else>
+            </f:if>
+    </div>
+
+    <div id="sidemenu">
+        <a href="#">Hilfe</a> | <f:link.action action="logout" id="acc_logout" controller="Login">{username} Logout</f:link.action>
+    </div>
+
+    <div id="titlefield">
+        {titel}
+    </div>
+
+</div>

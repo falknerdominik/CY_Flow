@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:f="http://www.w3.org/1999/html">
+	<head>
+		<meta charset="utf-8">
+		<title>Login - Connect You</title>
+
+        <f:comment>Fügt die base href ein via Fluid</f:comment>
+		<f:base />
+
+        <f:comment>Die Styles für den Login incl. den Standarts</f:comment>
+        <link href="Resources/Public/styles/general/bootstrap.css" type="text/css" rel="stylesheet" />
+        <link href="Resources/Public/styles/general/bootstrap-responsive.css" type="text/css" rel="stylesheet" />
+        <link href="Resources/Public/styles/general/flat-ui.css" type="text/css" rel="stylesheet" />
+        <link href="Resources/Public/styles/general/flashMessage.css" type="text/css" rel="stylesheet" />
+        <link href="Resources/Public/styles/login.css" type="text/css" rel="stylesheet" />
+
+        <f:comment>Die Script inkl. Jquery</f:comment>
+        <script src="Resources/Public/js/general/jquery.js" type="text/javascript"></script>
+        <script src="Resources/Public/js/general/flashMessage.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<f:flashMessages class="flashmessages"/>
+
+		<f:render section="Content" />
+	</body>
+</html>

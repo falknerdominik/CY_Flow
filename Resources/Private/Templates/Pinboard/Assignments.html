@@ -1,0 +1,14 @@
+<f:layout name="Pinboard" />
+
+<f:section name="Content">
+
+    <h1>Assignments</h1>
+    <div id="assignments">
+        <f:form action="createAssignments"  name="newAssignment" object="{newAssignment}" >
+            <f:render partial="Assignments/FormFields" arguments="{_all}"/>
+            <f:form.submit value="Erstellen" class="btn "/>
+        </f:form><br />
+        <f:link.action class="" action="index" controller="Marketplace">Zurück zur Liste</f:link.action><br />
+    </div>
+
+</f:section>

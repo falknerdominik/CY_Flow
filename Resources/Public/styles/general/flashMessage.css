@@ -1,0 +1,17 @@
+.flashmessages{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    list-style: none;
+    width: 300px;
+}
+
+.flashmessages .flashmessages-ok{
+    background: rgba(106, 182, 0, 0.9);
+    padding: 10px;
+}
+
+.flashmessages .flashmessages-error{
+    background: #D14719;
+    padding: 10px;
+}

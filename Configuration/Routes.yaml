@@ -1,0 +1,8 @@
+
+uriPattern: ''
+defaults:
+  '@package': 'BBS.ConnectYou'
+  '@controller': 'Login'
+  '@format': 'html'
+  '@action': 'index'
+

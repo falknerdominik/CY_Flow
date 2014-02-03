@@ -1,0 +1,14 @@
+<f:layout name="Marketplace" />
+
+<f:section name="Content">
+    <div id="wrapper">
+        <h1>Neues Projekt</h1>
+        <f:form action="create"  name="newProject" object="{newProject}" >
+            <f:render partial="Marketplace/FormFields" arguments="{_all}"/>
+            <f:form.submit value="Erstellen" class="btn btn-large btn-block btn-primary"/>
+        </f:form><br />
+
+        <f:link.action class="btn btn-large btn-block btn-primary" action="index" controller="Marketplace">Zurück zur Liste</f:link.action><br />
+    </div>
+
+</f:section>
