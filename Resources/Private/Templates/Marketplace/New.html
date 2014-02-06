@@ -4,7 +4,14 @@
     <div id="wrapper">
         <h1>Neues Projekt</h1>
         <f:form action="create"  name="newProject" object="{newProject}" >
-            <f:render partial="Marketplace/FormFields" arguments="{_all}"/>
+            <label for="name">Name</label><br />
+            <f:form.textfield property="name" /><br />
+
+            <label for="description">Beschreibung</label><br />
+            <f:form.textarea property="description" /><br />
+
+            <label for="type">Typ</label><br />
+            <f:form.textfield property="type" /><br />
             <f:form.submit value="Erstellen" class="btn btn-large btn-block btn-primary"/>
         </f:form><br />
 

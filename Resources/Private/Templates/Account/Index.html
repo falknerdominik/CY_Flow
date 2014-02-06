@@ -1,0 +1,31 @@
+<f:layout name="Account" />
+
+<f:section name="Content">
+        <f:security.ifHasRole role="BBS.ConnectYou:Client">
+            <f:form action="updateClient" controller="Account" method="post" name="account">
+                <label>Firmenname:</label><f:form.textfield name="companyName" value="{party.name}"/>
+                <label>Postleitzahl:</label><f:form.textfield name="plz" value="{party.plz}"/>
+                <label>Stadt:</label><f:form.textfield name="city" value="{party.city}"/>
+                <label>Straße:</label><f:form.textfield name="street" value="{party.street}"/>
+                <label>Straßennummer:</label><f:form.textfield name="streetNumber" value="{party.streetNumber}"/>
+                <label>Telefonnummer:</label><f:form.textfield name="telephone" value="{party.telephone}"/>
+                <label>E-Mail:</label><f:form.textfield name="email" value="{party.email}"/>
+        </f:security.ifHasRole>
+
+        <f:security.ifHasRole role="BBS.ConnectYou:Teacher">
+            <f:form action="updateTeacher" controller="Account" method="post" name="account">
+                <label>Vorname:</label><f:form.textfield name="companyName" value="{party.fname}"/>
+                <label>Nachname:</label><f:form.textfield name="plz" value="{party.lname}"/>
+                <label>Email:</label><f:form.textfield name="city" value="{party.email}"/>
+        </f:security.ifHasRole>
+
+        <f:security.ifHasRole role="BBS.ConnectYou:Student">
+            <f:form action="updateStudent" controller="Account" method="post" name="account">
+                <label>Vorname:</label><f:form.textfield name="companyName" value="{party.fname}"/>
+                <label>Nachname:</label><f:form.textfield name="plz" value="{party.lname}"/>
+                <label>Email:</label><f:form.textfield name="city" value="{party.email}"/>
+                <label>Klasse</label><f:form.textfield name="street" value="{party.class}"/>
+        </f:security.ifHasRole>
+
+    <f:form.submit value="Speichern" /> </f:form>
+</f:section>

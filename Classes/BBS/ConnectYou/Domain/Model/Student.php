@@ -31,7 +31,12 @@ class Student extends \TYPO3\Party\Domain\Model\AbstractParty {
      */
     protected $lname;
 
-	/**
+    /**
+     * @var string
+     */
+    protected $class;
+
+    /**
 	 * @var string
 	 */
 	protected $email;

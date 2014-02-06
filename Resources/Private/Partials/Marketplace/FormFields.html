@@ -7,13 +7,6 @@
 <label for="type">Typ</label><br />
 <f:form.textfield property="type" /><br />
 
-<f:security.ifHasRole role="BBS.ConnectYou:Client">
-    <f:then>
-        <f:form.textfield value="{client}" property="client" type="hidden"/>
-    </f:then>
-</f:security.ifHasRole>
-
-
 <f:security.ifHasRole role="BBS.ConnectYou:Teacher">
     <f:then>
         <label for="team">Team</label><br />
@@ -21,5 +14,8 @@
 
         <label for="client">Client</label><br />
         <f:form.select name="client" property="client" options="{clients}" optionValueField="{client}" optionLabelField="name" /><br />
+
+        <label for="caretaker">Betreuungslehrer</label><br />
+        <f:form.select name="caretaker" property="caretaker" options="{teachers}" optionValueField="{teacher}" optionLabelField="name" />
     </f:then>
 </f:security.ifHasRole>

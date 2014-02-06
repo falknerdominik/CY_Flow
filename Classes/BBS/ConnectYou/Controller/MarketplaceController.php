@@ -33,10 +33,23 @@ class MarketplaceController extends ActionController {
     protected $clientRepository;
 
     /**
+     * @Flow\Inject
+     * @var \BBS\ConnectYou\Domain\Repository\TeacherRepository
+     */
+    protected $teacherRepository;
+
+    /**
+     * @Flow\Inject
+     * @var \BBS\ConnectYou\Domain\Repository\StudentRepository
+     */
+    protected $studentRepository;
+
+    /**
 	 * @return void
 	 */
 	public function indexAction() {
 		$this->view->assign('projects', $this->projectRepository->findAll());
+        #echo $project->getTeam()->count();
 
         // Für jede View - Anzeigen des Benutzernamens .. Link zur Pinnwand
         $this->view->assign('username', $this->securityContext->getAccount()->getAccountIdentifier());
@@ -46,6 +59,7 @@ class MarketplaceController extends ActionController {
         if($userproject){
             $this->view->assign('userproject', $userproject);
         }
+        #echo $userproject->getTeam();
     }
 
 	/**
@@ -90,6 +104,11 @@ class MarketplaceController extends ActionController {
 	 * @return void
 	 */
 	public function createAction(\BBS\ConnectYou\Domain\Model\Project $newProject) {
+        // Aktuelles Datum
+        $curYear = date('Y');
+        $nextYear = date('Y') + 1;
+        $newProject->setYear($curYear . "-" . $nextYear);
+
 	    $this->projectRepository->add($newProject);
 		$this->addFlashMessage('Das Projekt "' . $newProject->getName() . '" ');
 		$this->redirect('index');
@@ -101,7 +120,10 @@ class MarketplaceController extends ActionController {
 	 */
 	public function editAction(\BBS\ConnectYou\Domain\Model\Project $project) {
 		$this->view->assign('project', $project);
+
         $this->view->assign('clients', $this->clientRepository->findAll());
+        $this->view->assign('students', $this->studentRepository->findAll());
+        $this->view->assign('teachers', $this->teacherRepository->findAll());
 
         // Für jede View - Anzeigen des Benutzernamens .. Link zur Pinnwand
         $this->view->assign('username', $this->securityContext->getAccount()->getAccountIdentifier());
@@ -118,6 +140,11 @@ class MarketplaceController extends ActionController {
 	 * @return void
 	 */
 	public function updateAction(\BBS\ConnectYou\Domain\Model\Project $project) {
+
+        // TODO: unsauber
+        if(count($project->getTeam(), COUNT_RECURSIVE) == 1)
+            $project->setTeam();
+
 		$this->projectRepository->update($project);
 		$this->addFlashMessage('Updated the project.');
 		$this->redirect('index');
@@ -157,9 +184,11 @@ class MarketplaceController extends ActionController {
                     $projectDesUsers = $project; // Das Projekt in dem der User teilnimmt
             }
 
+
+
             // Wenn der User ein Student ist
             foreach ($projects as $project) { // Gehe durch alle Projekte
-                if($project->getTeam()){
+                if(count($project->getTeam(), COUNT_RECURSIVE) > 1){ // Prüft ob die ArrayCollection mehr als 1 Objekt enthält (obj->isEmpty() funktioniert nicht
                     foreach($project->getTeam() as $teammember){ // Gehe durch alle Teammitglieder
                         if($teammember->getName() == $account->getName())
                             $projectDesUsers = $project; // Das Projekt in dem der User teilnimmt

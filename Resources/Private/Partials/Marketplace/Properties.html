@@ -15,15 +15,21 @@
 	</f:then>
 </f:if>
 
-<f:comment>Wenn ein Client Vorhanden ist</f:comment>
-<f:if condition="{project.client}">
-    <f:then>
-        <h3> Auftraggeber </h3>
-        <ul>
-            <li>{project.client.name}</li>
-            <li>{project.client.email}</li>
-            <li>{project.client.telephone}</li>
-        </ul>
-    </f:then>
-</f:if>
+<f:comment>Wenn ein Client Vorhanden ist und Er Auftraggeber oder Lehrer ist</f:comment>
+
+
+<f:security.ifHasRole role="BBS.ConnectYou:Teacher">
+        <f:if condition="{project.client}">
+            <f:then>
+                <h3> Auftraggeber </h3>
+                <ul>
+                    <li>{project.client.name}</li>
+                    <li>{project.client.plz} {project.client.city}</li>
+                    <li>{project.client.street} {project.client.streetnumber}</li>
+                    <li>E-Mail: {project.client.email}</li>
+                    <li>Tel.: {project.client.telephone}</li>
+                </ul>
+            </f:then>
+        </f:if>
+</f:security.ifHasRole>
 

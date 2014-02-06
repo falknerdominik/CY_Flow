@@ -90,7 +90,7 @@ class LoginController extends ActionController {
      */
     public function createAction($name, $pass, $pass2, $companyName, $plz, $city, $street, $streetNumber, $telephone, $email) {
 
-        $defaultRole = 'BBS.ConnectYou:Teacher';
+        $defaultRole = 'BBS.ConnectYou:Client';
 
         if($name == '' || strlen($name) < 5) {
             $this->addFlashMessage('Benutzername muss mindestens 5 Zeichen lang sein.');

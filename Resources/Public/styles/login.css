@@ -82,3 +82,84 @@ body, html {
     padding-top: 1.5%;
     letter-spacing: 0.3em;
 }
+
+/*****************
+* Registrierung *
+*****************/
+
+@import url('http://fonts.googleapis.com/css?family=Lato:300,400,700');
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+/* HÄSSLICH
+body, html{
+    background-image:url(../images/backgrounds/debut_light.png);
+    background-repeat:repeat;
+}*/
+
+
+#bild_a {
+    position: absolute;
+    left: 50%;
+    width: 40%;
+    margin-left:-20%;
+    clip:rect(0 100px auto 0);
+}
+
+#bild_b {
+    position: relative;
+    left: 50%;
+    width: 40%;
+    margin-left: -20%;
+}
+
+form[name=reg] {
+    position:relative;
+    width:50%;
+    height:inherit;
+    margin-left: -1em;
+}
+
+
+
+.wrapper{
+    clear:both;
+    float:right;
+    margin-top:	2em;
+}
+
+#main {
+    float:right;
+    clear:both;
+}
+
+
+#trennung {
+    position:absolute;
+    top:0px;
+    left: 50%;
+    height: 100%;
+    width: 2px;
+    background-color:#999;
+
+}
+
+form h1 {
+    float:right;
+}
+
+input[type="text"], input[type="password"]{
+    height:33px;
+}
+
+/*
+#effect {
+position:relative;
+overflow: hidden;
+height:100%;
+width:20%;
+}
+*/

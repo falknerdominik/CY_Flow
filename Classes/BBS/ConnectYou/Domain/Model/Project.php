@@ -6,6 +6,7 @@ namespace BBS\ConnectYou\Domain\Model;
  *                                                                        *
  *                                                                        */
 
+use Doctrine\ORM\Query;
 use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -47,7 +48,7 @@ class Project {
 	/**
 	 * @var \BBS\ConnectYou\Domain\Model\Client
      * @ORM\Column(nullable=true)
-     * @ORM\OneToOne
+     * @ORM\ManyToOne
 	 */
 	protected $client;
 
@@ -65,8 +66,38 @@ class Project {
 	 */
 	protected $widgetsPrivate;
 
+    /**
+     * @var boolean
+     */
+    protected $archived;
 
-	/**
+    /**
+     * @var string
+     */
+    protected $year;
+
+    /**
+     * @var \BBS\ConnectYou\Domain\Model\Teacher
+     * @ORM\ManyToOne
+     * @ORM\Column(nullable=true)
+     */
+    protected $caretaker;
+
+    /**
+     * @return \BBS\ConnectYou\Domain\Model\Teacher
+     */
+    public function getCaretaker(){
+        return $this->caretaker;
+    }
+
+    /**
+     * @param \BBS\ConnectYou\Domain\Model\Teacher $caretaker
+     */
+    public function setCaretaker($caretaker){
+        $this->caretaker = $caretaker;
+    }
+
+    /**
 	 * @return string
 	 */
 	public function getName() {
@@ -138,7 +169,7 @@ class Project {
 	 * @return void
 	 */
 	public function setTeam(\Doctrine\Common\Collections\Collection $team = NULL) {
-		$this->team = $team;
+		    $this->team = $team;
 	}
 
 	/**
@@ -186,5 +217,34 @@ class Project {
 		$this->widgetsPrivate = $widgetsPrivate;
 	}
 
+    /**
+     * @param bool $archived Archiviert?
+     * @return void
+     */
+    public function setArchived($archived){
+        $this->archived = $archived;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getArchived(){
+        return $this->archived;
+    }
+
+    /**
+     * @param string $year
+     * @return void
+     */
+    public function setYear($year){
+        $this->year = $year;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getYear(){
+        return $this->year;
+    }
 }
 ?>

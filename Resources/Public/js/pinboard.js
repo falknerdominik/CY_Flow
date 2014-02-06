@@ -7,14 +7,6 @@
 
 window.onload = function () {
 
-
-    var notepadWidget = '<div class="cy_widget">
-        <form method="post" action="bbs.connectyou/widget/update" name="newNotepadWidget">
-        <input type="text" name="newNotepadWidget[title]" />
-        <input type="text" name="newNotepadWidget[content]" />
-        </form>
-        </div>';
-
     var widgets = new Array();
     //Kalender
     widgets[0] = "<div class='deletewidget panel panel-primary col-md-3 col-md-offset-1' ><div class='panel-heading' > Kalender <i class='remove'>X</i> </div ><div class='panel-body'>";

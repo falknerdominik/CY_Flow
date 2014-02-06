@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="utf-8" />
-		<title>Marktplatz</title>
+		<meta charset="utf-8">
+		<title>Einstellungen</title>
 		<f:base />
 
         <f:comment>FAVICON</f:comment>
@@ -14,7 +14,7 @@
         <link href="Resources/Public/styles/general/bootstrap-responsive.css" type="text/css" rel="stylesheet" />
         <link href="Resources/Public/styles/general/flat-ui.css" type="text/css" rel="stylesheet" />
         <link href="Resources/Public/styles/general/flashMessage.css" type="text/css" rel="stylesheet" />
-        <link href="Resources/Public/styles/marketplace.css" type="text/css" rel="stylesheet" />
+        <link href="Resources/Public/styles/account.css" type="text/css" rel="stylesheet" />
         <link href="Resources/Public/styles/general/nav.css" type="text/css" rel="stylesheet" />
 
         <f:comment>Die Script inkl. Jquery</f:comment>
@@ -22,9 +22,9 @@
         <script src="Resources/Public/js/general/flashMessage.js" type="text/javascript"></script>
 	</head>
 	<body>
-        <f:render partial="general/nav" arguments="{username : username, userproject : userproject, titel : 'Marketplace'}"/>
-		<f:flashMessages class="flashmessages" />
+        <f:render partial="general/nav" arguments="{username : username, userproject : userproject, titel : 'Einstellungen'}"/>
+        <f:flashMessages class="flashmessages" />
 
-		<f:render section="Content" />
+        <f:render section="Content" />
 	</body>
 </html>
