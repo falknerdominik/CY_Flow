@@ -1,0 +1,49 @@
+/*****************
+
+	* Für welche Bereiche:  Für das genieren der Auftraggeber Liste
+
+	* Notiz:
+
+	* Author(en): Dominik Falkner
+
+*****************/
+
+/************
+* Allgemein *
+************/
+
+@import url('http://fonts.googleapis.com/css?family=Lato:300,400,700');
+
+body{
+    font-family: 'Lato';
+}
+
+header{
+    margin-bottom: 1em;
+}
+
+h1 {
+    margin: 0;
+    padding: 0;
+}
+
+
+table,th,td
+{
+    border:1px solid black;
+    border-collapse:collapse;
+}
+
+th,td
+{
+    padding:5px;
+}
+
+th {
+    font-size: 1.1em;
+    text-align: left;
+    padding-top: 5px;
+    padding-bottom: 4px;
+    background-color: #3498db;
+    color: #ffffff;
+}

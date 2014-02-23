@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="Resources/Public/styles/documents/ClientList.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+
+<header>
+    <h1>Connect-You Auftraggeberübersicht ({date})</h1>
+</header>
+
+<hr />
+
+
+<table border="1">
+    <tr>
+        <th>Firmenname</th>
+        <th>Accountname</th>
+        <th>E-Mail</th>
+        <th>Telefon</th>
+        <th>PLZ</th>
+        <th>Stadt</th>
+        <th>Straße</th>
+        <th>Straßennummer</th>
+    </tr>
+
+    <f:for each="{clients}" as="client">
+        <tr>
+            <td>{client.name}</td>
+            <f:for each="{client.accounts}" as="account">
+                <td>{account.accountIdentifier}</td>
+            </f:for>
+            <td>{client.email}</td>
+            <td>{client.telephone}</td>
+            <td>{client.plz}</td>
+            <td>{client.city}</td>
+            <td>{client.street}</td>
+            <td>{client.streetNumber}</td>
+        </tr>
+    </f:for>
+</table>
+
+
+
+</body>
+</html>
+
+

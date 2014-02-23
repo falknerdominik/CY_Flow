@@ -14,7 +14,43 @@ use TYPO3\Flow\Persistence\Repository;
  */
 class StudentRepository extends Repository {
 
-	// add customized methods here
+    /**
+     * @Flow\Inject
+     * @var \BBS\ConnectYou\Domain\Repository\ProjectRepository
+     */
+    protected $projectRepository;
 
+	// add customized methods here
+    /**
+     * Gibt alle Studenten ohne Projekt zurück und alle die Bereits am Projekt teilnehmen
+     *
+     * @param \BBS\ConnectYou\Domain\Model\Project $project
+     * @return array
+     */
+    public function findStudentsWithoutProjectsAndStudentsOfProject($project){
+        // Alle Studenten ohne Projekte
+        $searchedStudents = $this->findStudentsWithoutProjects();
+
+        // Hinzufügen der Studenten im Projekt
+        foreach($project->getTeam() as $t){
+            $searchedStudents[] = $t;
+        }
+
+        // return Projects
+        return $searchedStudents;
+    }
+
+    public function findStudentsWithoutProjects(){
+        $searchedStudents = array();
+        $allStudents = $this->findAll();
+
+        foreach($allStudents as $s){
+            if(!$s->getProject()){
+                $searchedStudents[] = $s;
+            }
+        }
+
+        return $searchedStudents;
+    }
 }
 ?>

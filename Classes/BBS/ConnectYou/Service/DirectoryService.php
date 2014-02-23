@@ -45,6 +45,7 @@ class DirectoryService {
 	 * @throws \TYPO3\Flow\Error\Exception
 	 */
 	public function ldapConnect() {
+
 		$bindProviderClassName = 'BBS\ConnectYou\Service\BindProvider\\' . $this->options['type'] . 'Bind'; // Auswählen des Binds
 
 		if (!class_exists($bindProviderClassName)) {
@@ -91,14 +92,14 @@ class DirectoryService {
 	 * @return array Search result from LDAP
 	 * @throws \TYPO3\Flow\Error\Exception
 	 */
-	public function authenticate($username, $password) {
+	public function authenticate($username, $password) { // Hier wird versucht den User zu Authentifizieren
 		try {
 			$this->ldapConnect(); // Verbindung aufbauen
 			$this->bindProvider->bind($username, $password); // Bind
 			$entries = $this->getUserEntries($username); // Versuche
 			if (!empty($entries)) { // Wenn einträge im AD gefunden wurden
 				$this->bindProvider->verifyCredentials($entries[0]['dn'], $password); // Überprüft die Logindaten nochmalig
-				$entries = $this->getUserEntries($username); // falls kein Anonymous bind erlaubt ist erneuter Run
+				$entries = $this->getUserEntries($username); // Da kein Anonymer bind erneut die entries auslesen
 			}
 			return $entries[0]; // Return den userentry
 		} catch (\Exception $exception) {
@@ -115,9 +116,9 @@ class DirectoryService {
 	 */
 	public function getUserEntries($username) {
 		$searchResult = ldap_search( // Durchsuche AD
-			$this->bindProvider->getLinkIdentifier(),
-			$this->options['baseDn'],
-			str_replace(
+			$this->bindProvider->getLinkIdentifier(), // ds
+			$this->options['baseDn'], // BASE DN = dc=bbsrb, dc=local
+			str_replace( // Benutzername
 				'?',
 				$this->bindProvider->getFilteredUsername($username),
 				$this->options['filter']['account']
@@ -133,12 +134,12 @@ class DirectoryService {
 	}
 
 	/**
-	 * Check den Serve mithilfe eines Utilitys
+	 * Check den Server mithilfe eines Utilitys
 	 *
 	 * @return boolean
 	 */
-	public function isServerOnline() {
-		return BBS\Connectyou\Utility\ServerStatusUtility::isServerOnline($this->options['host'], $this->options['port']);
+	public function isServerOnline() { // Prüft ob Server erreichbar
+		return \BBS\Connectyou\Utility\ServerStatusUtility::isServerOnline($this->options['host'], $this->options['port']);
 	}
 
 }

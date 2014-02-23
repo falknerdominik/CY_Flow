@@ -1,31 +1,68 @@
 <f:layout name="Account" />
 
 <f:section name="Content">
-        <f:security.ifHasRole role="BBS.ConnectYou:Client">
-            <f:form action="updateClient" controller="Account" method="post" name="account">
-                <label>Firmenname:</label><f:form.textfield name="companyName" value="{party.name}"/>
-                <label>Postleitzahl:</label><f:form.textfield name="plz" value="{party.plz}"/>
-                <label>Stadt:</label><f:form.textfield name="city" value="{party.city}"/>
-                <label>Straße:</label><f:form.textfield name="street" value="{party.street}"/>
-                <label>Straßennummer:</label><f:form.textfield name="streetNumber" value="{party.streetNumber}"/>
-                <label>Telefonnummer:</label><f:form.textfield name="telephone" value="{party.telephone}"/>
-                <label>E-Mail:</label><f:form.textfield name="email" value="{party.email}"/>
-        </f:security.ifHasRole>
+    <div id="container">
+        <div id="settings">
 
-        <f:security.ifHasRole role="BBS.ConnectYou:Teacher">
-            <f:form action="updateTeacher" controller="Account" method="post" name="account">
-                <label>Vorname:</label><f:form.textfield name="companyName" value="{party.fname}"/>
-                <label>Nachname:</label><f:form.textfield name="plz" value="{party.lname}"/>
-                <label>Email:</label><f:form.textfield name="city" value="{party.email}"/>
-        </f:security.ifHasRole>
+            <f:security.ifHasRole role="BBS.ConnectYou:Client">
+                <f:form name="account" action="updateClient" controller="Account" method="post">
+                    <table id="firmenname">
+                        <tr>
+                            <td><label>Firmenname:</label></td><td> <input name="companyName" value="{party.name}" /><!-- <f:form.textfield name="companyName" value="{party.name}"/> --></td>
+                        </tr>
+                    </table>
+                    <div id="wrapper_settings">
+                        <table id="daten">
+                            <tr>
+                                <td><label>Postleitzahl:</label></td><td> <input name="plz" value="{party.plz}" /><!-- <f:form.textfield name="plz" value="{party.plz}"/> --></td>
+                                <td><label>Stadt:</label></td><td> <input name="city" value="{party.city}" /> <!-- <f:form.textfield name="city" value="{party.city}"/> --></td>
+                            </tr>
+                            <tr>
+                                <td><label>Straße:</label> </td><td> <input name="street" value="{party.street}" /> <!--<f:form.textfield name="street" value="{party.street}"/> --></td>
+                                <td><label>Straßennummer:</label> </td><td><input name="streetNumber" value="{party.streetNumber}" /> <!--<f:form.textfield name="streetNumber" value="{party.streetNumber}"/> --></td>
+                            </tr>
+                            <tr>
+                                <td> <label>Telefonnummer:</label> </td><td> <input name="telephone" value="{party.telephone}" /> <!--<f:form.textfield name="telephone" value="{party.telephone}"/> --></td>
+                                <td><label>E-Mail:</label> </td><td><input name="email" value="{party.email}" /> <!--<f:form.textfield name="email" value="{party.email}"/> --></td>
+                            </tr>
+                            <tr>
+                                <!-- <f:form.submit value="Speichern" /> -->
+                                <td></td><td></td><td></td><td><f:form.submit class="btn btn-lg btn-primary btn-block" name="submit" value="Speichern" /></td>
+                            </tr>
+                        </table>
+                    </div>
+                </f:form>
+            </f:security.ifHasRole>
 
-        <f:security.ifHasRole role="BBS.ConnectYou:Student">
-            <f:form action="updateStudent" controller="Account" method="post" name="account">
-                <label>Vorname:</label><f:form.textfield name="companyName" value="{party.fname}"/>
-                <label>Nachname:</label><f:form.textfield name="plz" value="{party.lname}"/>
-                <label>Email:</label><f:form.textfield name="city" value="{party.email}"/>
-                <label>Klasse</label><f:form.textfield name="street" value="{party.class}"/>
-        </f:security.ifHasRole>
+            <f:security.ifHasRole role="BBS.ConnectYou:Teacher">
+                <table id="firmenname">
+                    <tr>
+                        <td><label>Vorname:</label></td><td><label>{party.fname}</label></td>
+                        <td><label>Nachname:</label></td><td><label>{party.lname}</label> </td>
+                    </tr>
+                </table>
+                <table id="daten">
+                    <tr>
+                        <td><label>Email:</label></td><td> <label>{party.email}</label></td>
+                    </tr>
+                </table>
+            </f:security.ifHasRole>
 
-    <f:form.submit value="Speichern" /> </f:form>
+            <f:security.ifHasRole role="BBS.ConnectYou:Student">
+                <table id="firmenname">
+                    <tr>
+                        <td><label>Vorname:</label></td><td><label>{party.fname}</label></td>
+                        <td><label>Nachname:</label></td><td><label>{party.lname}</label></td>
+                    </tr>
+                </table>
+                <table id="daten">
+                    <tr>
+                        <td><label>Email:</label></td><td> <label>{party.email}</label></td>
+                        <td><label>Klasse</label></td><td> <label>{party.class}</label></label></td>
+                    </tr>
+                </table>
+            </f:security.ifHasRole>
+
+        </div>
+    </div>
 </f:section>

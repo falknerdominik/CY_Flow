@@ -10,12 +10,12 @@
 <f:security.ifHasRole role="BBS.ConnectYou:Teacher">
     <f:then>
         <label for="team">Team</label><br />
-        <f:form.select name="team[]" property="team" options="{students}" multiple="multiple" optionValueField="{student}" optionLabelField="name" /><br />
+        <f:form.select name="team[]" class="chosen-multiple" property="team" options="{students}" multiple="multiple" optionValueField="{student}" optionLabelField="nameandclass" prependOptionLabel="Bitte wähle die Schüler aus!"/><br />
 
         <label for="client">Client</label><br />
-        <f:form.select name="client" property="client" options="{clients}" optionValueField="{client}" optionLabelField="name" /><br />
+        <f:form.select name="client" class="chosen-single" property="client" options="{clients}" optionValueField="{client}" optionLabelField="name" prependOptionLabel="- Wähle -" /><br />
 
         <label for="caretaker">Betreuungslehrer</label><br />
-        <f:form.select name="caretaker" property="caretaker" options="{teachers}" optionValueField="{teacher}" optionLabelField="name" />
+        <f:form.select name="caretaker"class="chosen-single" property="caretaker" options="{teachers}" optionValueField="{teacher}" optionLabelField="name" prependOptionLabel="- Wähle -" />
     </f:then>
 </f:security.ifHasRole>

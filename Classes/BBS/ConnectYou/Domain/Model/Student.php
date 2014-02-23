@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 use TYPO3\Flow\Annotations as Flow;
 
 /**
- * A person
+ * Ein Student
  *
  * @Flow\Entity
  */
@@ -41,15 +41,82 @@ class Student extends \TYPO3\Party\Domain\Model\AbstractParty {
 	 */
 	protected $email;
 
-	/**
-	 * Constructs this Person
-	 *
-	 */
-	public function __construct() {
-		parent::__construct(); // für AbstractParty den Konstruktor ausführen
-	}
+    /**
+     * @var \BBS\ConnectYou\Domain\Model\Project
+     * @ORM\ManyToOne(inversedBy="team")
+     */
+    protected $project;
 
-	/**
+    /**
+     * @var string
+     * @FLow\Identity
+     */
+    protected $bbsid;
+
+    /**
+     * Setzt die bbsid
+     * @param string $bbsid
+     * @return void
+     */
+    public function setBbsid($bbsid){
+        $this->bbsid = $bbsid;
+    }
+
+    /**
+     * Gibt die bbsid
+     * @return string BBSID
+     */
+    public function getBbsid(){
+        return $this->bbsid;
+    }
+
+    /**
+     * Setzt das Projekt
+     *
+     * @param \BBS\ConnectYou\Domain\Model\Project Das Projekt zum setzen
+     * @return void
+     */
+    public function setProject($project){
+        $this->project = $project;
+    }
+
+    /**
+     * Gibt das Projekt zurück
+     *
+     * @return \BBS\ConnectYou\Domain\Model\Project
+     */
+    public function getProject(){
+        return $this->project;
+    }
+
+    /**
+     * @param \BBS\ConnectYou\Domain\Model\Student $project
+     * @return void
+     */
+    public function setTeam($project) {
+        $this->setProject($project);
+        $project->addTeammember($this);
+    }
+
+    /**
+     * Setzt die Klasse
+     *
+     * @param string $class
+     */
+    public function setClass($class){
+        $this->class = $class;
+    }
+
+    /**
+     * Gibt die Klasse Zurück
+     *
+     * @return string Klasse
+     */
+    public function getClass(){
+        return $this->class;
+    }
+
+    /**
 	 * Setzt den Vornamen
 	 *
 	 * @param string $fname der neue Vorname des Studenten
@@ -79,7 +146,7 @@ class Student extends \TYPO3\Party\Domain\Model\AbstractParty {
     }
 
     /**
-     * Returns the current name of this person
+     * Gibt Familienname zurück
      *
      * @return string Nachname des Studenten
      */
@@ -97,7 +164,7 @@ class Student extends \TYPO3\Party\Domain\Model\AbstractParty {
     }
 
     /**
-	 * Returns all known electronic addresses of this person.
+	 * Gibt die Email zurück
 	 *
 	 * @return string
 	 */
@@ -106,7 +173,7 @@ class Student extends \TYPO3\Party\Domain\Model\AbstractParty {
 	}
 
 	/**
-	 * Sets (and adds if necessary) the primary electronic address of this person.
+	 * Setzt die Email
 	 *
 	 * @param string The electronic address
 	 * @return void
@@ -114,6 +181,15 @@ class Student extends \TYPO3\Party\Domain\Model\AbstractParty {
 	public function setEmail($email) {
 		$this->email = $email;
 	}
+
+    /**
+     * Gibt den Namen mit der Klasse in Klammer zurück für die Select-View in Marketplace/edit
+     *
+     * @return string
+     */
+    public function getNameandclass(){
+        return $this->getName() . " (" . $this->getClass() . ")";
+    }
 }
 
 ?>

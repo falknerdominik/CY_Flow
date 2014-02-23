@@ -25,8 +25,9 @@ class ActiveDirectoryBind extends AbstractBindProvider {
 				if (!strpos($username, '\\')) {
 					$username = $this->options['domain'] . '\\' . $username;
 				}
+                error_log($this->options['domain'] . '\\' . $username);
 			}
-			ldap_bind($this->linkIdentifier, $username, $password);
+			ldap_bind($this->linkIdentifier, $username . "@bbsrb.local", $password);
 		} catch (\Exception $exception) {
 			throw new \TYPO3\Flow\Error\Exception('Could not bind to ActiveDirectory server', 1327937215);
 		}

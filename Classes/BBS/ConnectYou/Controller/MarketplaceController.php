@@ -45,21 +45,26 @@ class MarketplaceController extends ActionController {
     protected $studentRepository;
 
     /**
+     * Diese Funktion wird immer aufgerufen wenn eine View dieses Controllers aufgerufen wird, d.h. wird sie dazu
+     * verwenden 'globale' Variablen für die Views festzusetzen (z.b.: Nutzername für etc wird den Views immer übergeben)
+     *
+     * @return void
+     */
+    protected function initializeView(\TYPO3\Flow\Mvc\View\ViewInterface $view){
+        // finde das zugewiesene Projekt wenn vorhanden und der Nutzer kein Lehrer ist
+        if(!in_array("BBS.ConnectYou:Teacher", $this->securityContext->getAccount()->getRoles()) || !in_array("BBS.ConnectYou:Client", $this->securityContext->getAccount()->getRoles())){
+            $view->assign('userproject', $this->findUserProject());
+        }
+
+        // Benutzername für Benutzermenü
+        $view->assign('username', $this->securityContext->getAccount()->getAccountIdentifier());
+    }
+
+    /**
 	 * @return void
 	 */
 	public function indexAction() {
 		$this->view->assign('projects', $this->projectRepository->findAll());
-        #echo $project->getTeam()->count();
-
-        // Für jede View - Anzeigen des Benutzernamens .. Link zur Pinnwand
-        $this->view->assign('username', $this->securityContext->getAccount()->getAccountIdentifier());
-
-        // finde das zugewiesene Projekt wenn vorhanden
-        $userproject = $this->findUserProject();
-        if($userproject){
-            $this->view->assign('userproject', $userproject);
-        }
-        #echo $userproject->getTeam();
     }
 
 	/**
@@ -68,16 +73,6 @@ class MarketplaceController extends ActionController {
 	 */
 	public function showAction(\BBS\ConnectYou\Domain\Model\Project $project) {
         $this->view->assign('project', $project);
-        $this->view->assign('clients', $this->clientRepository->findAll());
-
-        // Für jede View - Anzeigen des Benutzernamens .. Link zur Pinnwand
-        $this->view->assign('username', $this->securityContext->getAccount()->getAccountIdentifier());
-
-        // finde das zugewiesene Projekt wenn vorhanden
-        $userproject = $this->findUserProject();
-        if($userproject){
-            $this->view->assign('userproject', $userproject);
-        }
 	}
 
 	/**
@@ -88,15 +83,6 @@ class MarketplaceController extends ActionController {
 	public function newAction() { // zeigt die Erstell Form an
         // findet den zugehörigen Auftraggeber und leitet an die view weiter
         $this->view->assign('client', $this->securityContext->getAccount()->getParty());
-
-        // Für jede View - Anzeigen des Benutzernamens .. Link zur Pinnwand
-        $this->view->assign('username', $this->securityContext->getAccount()->getAccountIdentifier());
-
-        // finde das zugewiesene Projekt wenn vorhanden
-        $userproject = $this->findUserProject();
-        if($userproject){
-            $this->view->assign('userproject', $userproject);
-        }
 	}
 
 	/**
@@ -122,31 +108,30 @@ class MarketplaceController extends ActionController {
 		$this->view->assign('project', $project);
 
         $this->view->assign('clients', $this->clientRepository->findAll());
-        $this->view->assign('students', $this->studentRepository->findAll());
+        $this->view->assign('students', $this->studentRepository->findStudentsWithoutProjectsAndStudentsOfProject($project));
         $this->view->assign('teachers', $this->teacherRepository->findAll());
-
-        // Für jede View - Anzeigen des Benutzernamens .. Link zur Pinnwand
-        $this->view->assign('username', $this->securityContext->getAccount()->getAccountIdentifier());
-
-        // finde das zugewiesene Projekt wenn vorhanden
-        $userproject = $this->findUserProject();
-        if($userproject){
-            $this->view->assign('userproject', $userproject);
-        }
 	}
+
+    /**
+     * Initaliziert die UpdateAction .. hier kann man die PropertyMappingConfiguration einstellen
+     */
+    public function initializeUpdateAction(){
+        $pmc = $this->arguments['project']->getPropertyMappingConfiguration();
+            $pmc->forProperty('team.*') // Sagt den Converter er soll zu Collection konvertieren
+                ->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', \TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_TARGET_TYPE, '\Doctrine\Common\Collections\Collection');
+            $pmc->forProperty('team.*') // Sagt es darf ein neue Collection erstellt werden
+                ->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', \TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE);
+            $pmc->forProperty('team.*')
+                ->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', \TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_MODIFICATION_ALLOWED, TRUE);
+    }
 
 	/**
 	 * @param \BBS\ConnectYou\Domain\Model\Project $project
 	 * @return void
 	 */
 	public function updateAction(\BBS\ConnectYou\Domain\Model\Project $project) {
-
-        // TODO: unsauber
-        if(count($project->getTeam(), COUNT_RECURSIVE) == 1)
-            $project->setTeam();
-
-		$this->projectRepository->update($project);
-		$this->addFlashMessage('Updated the project.');
+        $this->projectRepository->update($project);
+		$this->addFlashMessage('Projekt "' . $project->getName() . '" wurde geupdatet.');
 		$this->redirect('index');
 	}
 
@@ -156,7 +141,7 @@ class MarketplaceController extends ActionController {
 	 */
 	public function deleteAction(\BBS\ConnectYou\Domain\Model\Project $project) {
 		$this->projectRepository->remove($project);
-		$this->addFlashMessage('Deleted a project.');
+		$this->addFlashMessage('Projekt "' . $project->getName() . '" wurde gelöscht.');
 		$this->redirect('index');
 	}
 
@@ -169,33 +154,10 @@ class MarketplaceController extends ActionController {
      */
     protected function findUserProject(){
         // Zuerst der Party
-        $account = $this->securityContext->getAccount()->getParty();
-
-        // Alle Projekte Laden
-        $projects = $this->projectRepository->findAll();
+        $party = $this->securityContext->getAccount()->getParty();
 
         // Initalisiert die Variable für spätere nutzung
-        $projectDesUsers = NULL;
-
-        if($projects){ // Prüft ob Projekte vorhanden sind
-            // Wenn der User ein Client ist
-            foreach ($projects as $project) {// Gehe durch alle Projekte
-                if($project->getClient() && $project->getClient()->getName() == $account->getName()) // Client != NULL und der Name des Clienten mit dem eingeloggten User Überinstimmt
-                    $projectDesUsers = $project; // Das Projekt in dem der User teilnimmt
-            }
-
-
-
-            // Wenn der User ein Student ist
-            foreach ($projects as $project) { // Gehe durch alle Projekte
-                if(count($project->getTeam(), COUNT_RECURSIVE) > 1){ // Prüft ob die ArrayCollection mehr als 1 Objekt enthält (obj->isEmpty() funktioniert nicht
-                    foreach($project->getTeam() as $teammember){ // Gehe durch alle Teammitglieder
-                        if($teammember->getName() == $account->getName())
-                            $projectDesUsers = $project; // Das Projekt in dem der User teilnimmt
-                    }
-                }
-            }
-        }
+        $projectDesUsers = $party->getProject();
 
         // Returned das Projekt ... Wenn Gefunden Sonst NULL
         return $projectDesUsers;

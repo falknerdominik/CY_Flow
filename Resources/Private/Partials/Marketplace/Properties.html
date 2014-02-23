@@ -9,15 +9,13 @@
 	    <h3> Teammitglieder </h3>
         <ol>
             <f:for each="{project.team}" as="student">
-                <li>{student}</li>
+                <li>{student.nameandclass}</li>
             </f:for>
         </ol>
 	</f:then>
 </f:if>
 
 <f:comment>Wenn ein Client Vorhanden ist und Er Auftraggeber oder Lehrer ist</f:comment>
-
-
 <f:security.ifHasRole role="BBS.ConnectYou:Teacher">
         <f:if condition="{project.client}">
             <f:then>
@@ -31,5 +29,21 @@
                 </ul>
             </f:then>
         </f:if>
+</f:security.ifHasRole>
+
+<f:comment>Prüft wenn der Nutzer ein Student ist ob er teil des Projektes ist!</f:comment>
+<f:security.ifHasRole role="BBS.ConnectYou:Student">
+    <f:if condition="{project.Persistence_Object_Identifier} == {userproject.Persistence_Object_Identifier}">
+        <f:then>
+            <h3> Auftraggeber </h3>
+            <ul>
+                <li>{project.client.name}</li>
+                <li>{project.client.plz} {project.client.city}</li>
+                <li>{project.client.street} {project.client.streetnumber}</li>
+                <li>E-Mail: {project.client.email}</li>
+                <li>Tel.: {project.client.telephone}</li>
+            </ul>
+        </f:then>
+    </f:if>
 </f:security.ifHasRole>
 

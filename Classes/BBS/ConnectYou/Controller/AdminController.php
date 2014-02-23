@@ -7,7 +7,13 @@ namespace BBS\ConnectYou\Controller;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
+use BBS\ConnectYou\Utility as Utility;
 
+/**
+ * PDF Generation mithilfe von https://github.com/mneuhaus/Famelo.PDF
+ * Class AdminController
+ * @package BBS\ConnectYou\Controller
+ */
 class AdminController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 
     /**
@@ -40,10 +46,13 @@ class AdminController extends \TYPO3\Flow\Mvc\Controller\ActionController {
      */
     protected $studentRepository;
 
-	/**
+    /**
+     * Zeigt eine Übesicht an
+     *
 	 * @return void
 	 */
 	public function indexAction() {
+
         // Für jede View - Anzeigen des Benutzernamens .. Link zur Pinnwand
         $this->view->assign('username', $this->securityContext->getAccount()->getAccountIdentifier());
 
@@ -53,7 +62,102 @@ class AdminController extends \TYPO3\Flow\Mvc\Controller\ActionController {
             $this->view->assign('userproject', $userproject);
         }
 
+
 	}
+
+    /**
+     * Generiert mithilfe von Famelo.PDF(https://github.com/mneuhaus/Famelo.PDF) eine PDF übericht über aktuelle Projekte und gibt diese als download aus
+     *
+     * @return void
+     */
+    public function activeprojectspdfAction() {
+        $pdf = new \Famelo\PDF\Document("BBS.ConnectYou:ProjectList");
+        $pdf->assign('projects', $this->projectRepository->findActiveProjects());
+        $pdf->assign('date', date('d.m.Y'));
+        // finde das zugewiesene Projekt wenn vorhanden
+
+        $pdf->download('ProjectList' . date('d.m.Y') . '.pdf');
+
+        $this->redirect('index', 'Admin');
+    }
+
+    /**
+     * Generiert mithilfe von Famelo.PDF(https://github.com/mneuhaus/Famelo.PDF) eine PDF übericht über archivirten Projekte und gibt diese als download aus
+     *
+     * @return void
+     */
+    public function archivedprojectspdfAction() {
+        $pdf = new \Famelo\PDF\Document("BBS.ConnectYou:ProjectList");
+        $pdf->assign('projects', $this->projectRepository->findArchivedProjects());
+        $pdf->assign('date', date('d.m.Y'));
+        // finde das zugewiesene Projekt wenn vorhanden
+
+        $pdf->download('ProjectList' . date('d.m.Y') . '.pdf');
+
+        $this->redirect('index', 'Admin');
+    }
+
+    /**
+     * Generiert mithilfe von Famelo.PDF(https://github.com/mneuhaus/Famelo.PDF) eine PDF übericht über aktuelle Projekte und gibt diese als download aus
+     *
+     * @return void
+     */
+    public function clientspdfAction() {
+        $pdf = new \Famelo\PDF\Document("BBS.ConnectYou:ClientList");
+        $pdf->assign('clients', $this->clientRepository->findAll());
+        $pdf->assign('date', date('d.m.Y'));
+        $pdf->download('ClientList' . date('d.m.Y') . '.pdf');
+
+        $this->redirect('index', 'Admin');
+    }
+
+    /**
+     * Zeigt die View an um Projekt zu Exportieren (in andere Datenbank)
+     *
+     * @return void
+     */
+    public function exportAction(){
+        $this->view->assign('projects', $this->projectRepository->findAll());
+    }
+
+    /**
+     * exportiert die ausgewählten Projekte
+     *
+     * @param string Host
+     * @param string User
+     * @param string Passwort
+     * @param string Datenbankname
+     * @param string Tabellenname
+     * @param \Doctrine\Common\Collections\Collection<\BBS\ConnectYou\Domain\Model\Project> Projekte
+     * @return void
+     */
+    public function exportprojectsAction($host, $user, $pass, $dbname, $tbname, $projects){
+        $link = mysql_connect($host, $user, $pass);
+        mysql_select_db($dbname, $link);
+
+        // Querys
+        $statements = array();
+
+        // Check connection
+        if (mysqli_connect_errno())
+        {
+            $this->addFlashMessage("Fehler beim Verbinden: " . mysqli_connect_error());
+        }
+
+        // Query Zusammenstellen
+        foreach($projects as $project){
+            $statements[] = 'INSERT INTO ' . $tbname . ' (name, beschreibung, typ) VALUES ("' . $project->getName() . '","' . $project->getDescription() . '","' . $project->getType() . '");';
+        }
+
+        foreach($statements as $statement){
+            mysql_query($statement, $link);
+        }
+        mysql_close($link);
+
+        $this->addFlashMessage("Geupdatet!");
+        $this->redirect('export');
+    }
+
 
     /**
      * Finde ob User Teil eines Projektes ist (Wenn ja wird ein Link zu einer Pinnwand gerendert)

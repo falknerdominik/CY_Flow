@@ -6,11 +6,14 @@ namespace BBS\ConnectYou\Domain\Model;
  *                                                                        *
  *                                                                        */
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query;
 use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * Ein Projekt
+ *
  * @Flow\Entity
  */
 class Project {
@@ -41,6 +44,7 @@ class Project {
 
 	/**
 	 * @var \Doctrine\Common\Collections\Collection<\BBS\ConnectYou\Domain\Model\Student>
+     * @ORM\OneToMany(mappedBy="project", cascade={"persist"})
      * @ORM\Column(nullable=true)
 	 */
 	protected $team;
@@ -48,23 +52,23 @@ class Project {
 	/**
 	 * @var \BBS\ConnectYou\Domain\Model\Client
      * @ORM\Column(nullable=true)
-     * @ORM\ManyToOne
+     * @ORM\ManyToOne(inversedBy="project")
 	 */
 	protected $client;
 
-	/**
+	/*/**
 	 * @var \BBS\ConnectYou\Domain\Model\Widgets
      * @ORM\OneToOne
      * @ORM\Column(nullable=true)
 	 */
-	protected $widgetsPublic;
+	/*protected $widgetsPublic;*/
 
-	/**
+	/*/**
 	 * @var \BBS\ConnectYou\Domain\Model\Widgets
      * @ORM\OneToOne
      * @ORM\Column(nullable=true)
 	 */
-	protected $widgetsPrivate;
+	/*protected $widgetsPrivate;*/
 
     /**
      * @var boolean
@@ -82,6 +86,13 @@ class Project {
      * @ORM\Column(nullable=true)
      */
     protected $caretaker;
+
+    public function __construct() {
+        $this->team = new ArrayCollection();
+        $this->assignments = new ArrayCollection();
+        $this->widgetsPrivate = new ArrayCollection();
+        $this->widgetsPublic = new ArrayCollection();
+    }
 
     /**
      * @return \BBS\ConnectYou\Domain\Model\Teacher
@@ -153,26 +164,38 @@ class Project {
 	 * @param \Doctrine\Common\Collections\Collection<\BBS\ConnectYou\Domain\Model\Assignments> $assignments
 	 * @return void
 	 */
-	public function setAssignments(\Doctrine\Common\Collections\Collection $assignments = NULL) {
+	public function setAssignments($assignments) {
             $this->assignments = $assignments;
 	}
 
 	/**
-	 * @return \Doctrine\Common\Collections\Collection<\BBS\ConnectYou\Domain\Model\Students>
+	 * @return \Doctrine\Common\Collections\Collection
 	 */
 	public function getTeam() {
 		return $this->team;
 	}
 
-	/**
-	 * @param \Doctrine\Common\Collections\Collection<\BBS\ConnectYou\Domain\Model\Students> $team
-	 * @return void
-	 */
-	public function setTeam(\Doctrine\Common\Collections\Collection $team = NULL) {
-		    $this->team = $team;
-	}
+    /**
+     * @param \Doctrine\Common\Collections\Collection<\BBS\ConnectYou\Domain\Model\Student> $team
+     * @return void
+     */
+    public function setTeam($team) {
+        $this->team->clear();
+        foreach($team as $t){
+            $this->addTeammember($t);
+            $t->setProject($this);
+        }
+    }
 
-	/**
+    /**
+     * @param \BBS\ConnectYou\Domain\Model\Student $student
+     * @return void
+     */
+    public function addTeammember($student){
+        $this->team->add($student);
+    }
+
+    /**
 	 * @return \BBS\ConnectYou\Domain\Model\Client
 	 */
 	public function getClient() {
@@ -184,7 +207,8 @@ class Project {
 	 * @return void
 	 */
 	public function setClient($Client) {
-		$this->client = $Client;
+        $Client->setProject($this);
+        $this->client = $Client;
 	}
 
 	/**
@@ -199,7 +223,10 @@ class Project {
 	 * @return void
 	 */
 	public function setWidgetsPublic(\Doctrine\Common\Collections\Collection $widgetsPublic = NULL) {
-		$this->widgetsPublic = $widgetsPublic;
+        if($widgetsPublic->isEmpty()) // Prüft ob die Collection leer ist wenn ja wird NULL reingeschrieben (und keine leere Collection!)
+		    $this->widgetsPublic = NULL;
+        else
+            $this->widgetsPublic = $widgetsPublic;
 	}
 
 	/**
@@ -214,7 +241,10 @@ class Project {
 	 * @return void
 	 */
 	public function setWidgetsPrivate(\Doctrine\Common\Collections\Collection $widgetsPrivate = NULL) {
-		$this->widgetsPrivate = $widgetsPrivate;
+        if($widgetsPrivate->isEmpty()) // Prüft ob die Collection leer ist wenn ja wird NULL reingeschrieben (und keine leere Collection!)
+		    $this->widgetsPrivate = NULL;
+        else
+            $this->widgetsPrivate = $widgetsPrivate;
 	}
 
     /**
@@ -222,7 +252,10 @@ class Project {
      * @return void
      */
     public function setArchived($archived){
-        $this->archived = $archived;
+        if($archived != NULL)
+            $this->archived = $archived;
+        else
+            $this->archived = 0;
     }
 
     /**

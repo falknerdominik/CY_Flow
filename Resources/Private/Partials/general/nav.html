@@ -1,4 +1,4 @@
-<div id="head" xmlns:f="http://www.w3.org/1999/html">
+<div id="head">
 
     <div id="leiste"></div>
 
@@ -9,11 +9,17 @@
                 <li class="cat1">
                     <img alt="CY" src="Resources/Public/images/general/header_logo_weis.png" />
                     <ul>
+                        <f:comment>Jeder darf auf den Marketplace ... </f:comment>
+                        <li>
+                            <f:link.action action="index" controller="Marketplace">Marketplace</f:link.action>
+                        </li>
+
                         <f:security.ifHasRole role="BBS.ConnectYou:Teacher">
                             <li>
                                 <f:link.action action="index" controller="Admin">Adminpanel</f:link.action>
                             </li>
                         </f:security.ifHasRole>
+
                         <f:comment>
                             Prüft ob ein Projekt dem User zugeteilt ist und zeigt den Jeweiligen Link an
                             ("zum Marketplace" wird nur angezigt auf der Pinnwand d.h. dort ist {userproject} == NULL

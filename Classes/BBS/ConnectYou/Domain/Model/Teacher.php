@@ -29,8 +29,37 @@ class Teacher extends \TYPO3\Party\Domain\Model\AbstractParty {
 	 */
 	protected $email;
 
+    /**
+     * @var string
+     * @FLOW\Identity
+     */
+    protected $bbsid;
 
-	/**
+    /**
+     * Setzt die bbsid
+     * @param string $bbsid
+     * @return void
+     */
+    public function setBbsid($bbsid){
+        $this->bbsid = $bbsid;
+    }
+
+    /**
+     * Gibt die bbsid
+     * @return string BBSID
+     */
+    public function getBbsid(){
+        return $this->bbsid;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(){
+        return $this->fname . " " . $this->lname;
+    }
+
+    /**
 	 * @return string
 	 */
 	public function getFname() {

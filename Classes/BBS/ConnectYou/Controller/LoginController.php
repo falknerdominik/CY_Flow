@@ -68,8 +68,9 @@ class LoginController extends ActionController {
         } catch (\TYPO3\Flow\Exception $exception) {
             // Prüft ob eine Fehlernachricht vorhanden ist. Wenn ja zeigt diese an.
             if($exception->getMessage()){
-                $this->addFlashMessage('Falscher Benutzername oder Passwort!');
+                $this->addFlashMessage('Falscher Benutzername oder Passwort!'/* . $exception->getMessage()*/);
                 //$this->addFlashMessage($exception->getMessage());
+                $this->redirect('index', 'Login');
             }
         }
     }

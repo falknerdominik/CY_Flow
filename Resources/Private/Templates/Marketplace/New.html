@@ -12,7 +12,16 @@
 
             <label for="type">Typ</label><br />
             <f:form.textfield property="type" /><br />
+
+            <f:form.textfield type="hidden" property="archived" value="0" />
+
             <f:form.submit value="Erstellen" class="btn btn-large btn-block btn-primary"/>
+
+            <f:comment>Wenn der Nutzer ein Client ist wird festgesetz dass er es erstellt hat</f:comment>
+            <f:security.ifHasRole role="BBS.ConnectYou:Client">
+                <f:form.textfield type="hidden" property="client" value="{client}" />
+            </f:security.ifHasRole>
+
         </f:form><br />
 
         <f:link.action class="btn btn-large btn-block btn-primary" action="index" controller="Marketplace">Zurück zur Liste</f:link.action><br />

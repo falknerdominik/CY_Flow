@@ -116,10 +116,69 @@ ul {
  * FORM
  *************/
 
-form{
-    margin-top: 5em;
+#container {
+    overflow:scroll;
+    position:relative;
+    width: 66%;
+    margin: 0 auto;
+    margin-top: 1em;
+    height: 210em;
+    border-left: 1px dotted #666666;
+    border-right: 1px dotted #666666;
 }
 
-input[type="text"], input[type="password"]{
-    height:33px;
+#settings {
+    overflow:scroll;
+    height:auto;
+    width: 90%;
+    background-color:rgba(255,255,255,1);
+    margin-left: auto;
+    margin-right: auto;
+    border:solid rgba(204,204,204,1) 2px;
+}
+
+#settingsoption a{
+    color: grey;
+    font-size: 15px;
+    text-decoration:none;
+    text-align:center;
+}
+
+#settingsoption {
+    margin-left:25%;
+    margin-top: 0.5%;
+}
+
+hr {
+    border: none;
+    margin: 0 auto;
+    width:60%;
+    margin-top: 0.5%;
+    border-top: 1px dotted #666666;
+}
+
+#firmenname {
+    margin: 0 auto;
+    font-size: 20pt;
+    margin-bottom: 30px;
+    border-spacing: 20px;
+}
+
+#daten {
+    margin: 0 auto;
+    text-align: center;
+    border-spacing: 10px;
+}
+input[name=companyName] {
+    height: 20pt;
+}
+
+input[name=submit] {
+    padding: 0px;
+    border-radius: 0px;
+}
+
+#wrapper_settings {
+    width:100%;
+    margin-left:-2%;
 }

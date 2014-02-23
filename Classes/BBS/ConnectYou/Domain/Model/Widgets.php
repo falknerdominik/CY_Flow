@@ -6,6 +6,7 @@ namespace BBS\ConnectYou\Domain\Model;
  *                                                                        *
  *                                                                        */
 
+use Doctrine\Common\Collections\ArrayCollection;
 use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -16,29 +17,41 @@ class Widgets {
 
 	/**
 	 * @var \Doctrine\Common\Collections\Collection<\BBS\ConnectYou\Domain\Model\NotepadWidget>
+     * @ORM\Column(nullable=true)
 	 */
 	protected $notepads;
 
 	/**
 	 * @var \Doctrine\Common\Collections\Collection<\BBS\ConnectYou\Domain\Model\TodoWidget>
+     * @ORM\Column(nullable=true)
 	 */
 	protected $todos;
 
 	/**
 	 * @var \Doctrine\Common\Collections\Collection<\BBS\ConnectYou\Domain\Model\GalleryWidget>
+     * @ORM\Column(nullable=true)
 	 */
 	protected $gallerys;
 
 	/**
 	 * @var \Doctrine\Common\Collections\Collection<\BBS\ConnectYou\Domain\Model\MilestoneWidget>
+     * @ORM\Column(nullable=true)
 	 */
 	protected $milestones;
 
 	/**
 	 * @var \Doctrine\Common\Collections\Collection<\BBS\ConnectYou\Domain\Model\DocumentWidget>
+     * @ORM\Column(nullable=true)
 	 */
 	protected $documents;
 
+    public function __construct() {
+        $this->notepads = new ArrayCollection();
+        $this->gallerys = new ArrayCollection();
+        $this->milestones = new ArrayCollection();
+        $this->documents = new ArrayCollection();
+        $this->todos = new ArrayCollection();
+    }
 
 	/**
 	 * @return \Doctrine\Common\Collections\Collection<\BBS\ConnectYou\Domain\Model\NotepadWidget>

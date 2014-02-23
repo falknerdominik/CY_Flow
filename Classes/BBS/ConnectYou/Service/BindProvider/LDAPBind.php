@@ -60,6 +60,14 @@ class LDAPBind extends AbstractBindProvider {
 	 * @throws \TYPO3\Flow\Error\Exception
 	 */
 	public function bind($username, $password) {
+
+        error_log("test8");
+        $bind = ldap_bind($this->getLinkIdentifier(), $username . "@bbsrb.local", $password);
+        if(!$bind){
+            echo "Bind ist Fehlgeschlagen!";
+        }
+
+/*
 		try {
 			$anonymousBind = FALSE;
 			if (isset($this->options['bind']['anonymous']) && $this->options['bind']['anonymous'] === TRUE) {
@@ -80,7 +88,7 @@ class LDAPBind extends AbstractBindProvider {
 			}
 		} catch (\Exception $exception) {
 			throw new \TYPO3\Flow\Error\Exception('Could not bind to LDAP server', 1327748989);
-		}
+		}*/
 	}
 
 	/**

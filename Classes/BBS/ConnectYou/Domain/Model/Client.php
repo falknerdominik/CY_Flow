@@ -56,16 +56,33 @@ class Client extends \TYPO3\Party\Domain\Model\AbstractParty {
 	 */
 	protected $email;
 
-	/**
-	 * Constructs this Person
-	 *
-	 */
-	public function __construct() {
-		parent::__construct();
-	}
+    /**
+     * @var \BBS\ConnectYou\Domain\Model\Project
+     * @ORM\OneToMany(mappedBy="client", cascade={"persist"})
+     */
+    protected $project;
 
-	/**
-	 * Sets the current name of this person
+    /**
+     * Setzt Projekt
+     *
+     * @param \BBS\ConnectYou\Domain\Model\Project $project
+     * @return void
+     */
+    public function setProject($project){
+        $this->project = $project;
+    }
+
+    /**
+     * Gibt das Projekt
+     * 
+     * @return \BBS\ConnectYou\Domain\Model\Project
+     */
+    public function getProject(){
+        return $this->project;
+    }
+
+    /**
+	 * Setzt den Namen der Person
 	 *
 	 * @param string $name Name of this person
 	 * @return void

@@ -1,5 +1,12 @@
 <f:layout name="Admin" />
 
 <f:section name="Content">
-    <h1>Adminbereich</h1>
+    <nav>
+        <ul>
+            <li><f:link.action action="activeprojectspdf">Liste aller aktiven Projekte</f:link.action></li>
+            <li><f:link.action action="archivedprojectspdf">Liste aller archivierten Projekte</f:link.action></li>
+            <li><f:link.action action="clientspdf">Liste aller Auftraggeber</f:link.action></li>
+            <li><f:link.action action="export">DB aktualisieren</f:link.action> </li>
+        </ul>
+    </nav>
 </f:section>

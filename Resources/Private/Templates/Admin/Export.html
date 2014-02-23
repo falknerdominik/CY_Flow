@@ -1,0 +1,34 @@
+<f:layout name="Admin" />
+
+<f:section name="Content">
+    <nav>
+        <ul>
+            <li><f:link.action action="activeprojectspdf">Liste aller aktiven Projekte</f:link.action></li>
+            <li><f:link.action action="archivedprojectspdf">Liste aller archivierten Projekte</f:link.action></li>
+            <li><f:link.action action="clientspdf">Liste aller Auftraggeber</f:link.action></li>
+            <li><f:link.action action="export">DB aktualisieren</f:link.action> </li>
+        </ul>
+    </nav>
+
+    <f:form controller="Admin" action="exportprojects" method="post" name="export">
+        <label for="host">Host</label><br />
+        <f:form.textfield name="host" /><br />
+
+        <label for="user">DB Benutzer</label><br />
+        <f:form.textfield name="user" /><br />
+
+        <label for="pass">DB Passwort</label><br />
+        <f:form.textfield name="pass" type="password"/><br />
+
+        <label for="dbname">Datenbankname</label><br />
+        <f:form.textfield name="dbname" /><br />
+
+        <label for="tbname">Tabellen Name</label><br />
+        <f:form.textfield name="tbname" /><br />
+
+        <label for="projects">Projekte (Mit STR Auswählen)</label><br />
+        <f:form.select name="projects" options="{projects}" multiple="multiple" optionValueField="{project}" optionLabelField="name"/><br />
+
+        <f:form.submit value="In DB speichern" />
+    </f:form>
+</f:section>
