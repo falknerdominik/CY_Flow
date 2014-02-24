@@ -1,5 +1,58 @@
+resources:
+  methods:
+    login: 'method(BBS\ConnectYou\Controller\LoginController->.*Action())'
+
+    account: 'method(BBS\ConnectYou\Controller\AccountController->.*Action())'
+    admin: 'method(BBS\ConnectYou\Controller\AdminController->.*Action())'
+
+    marketplace: 'method(BBS\ConnectYou\Controller\MarketplaceController->.*Action())'
+    marketplaceindex: 'method(BBS\ConnectYou\Controller\MarketplaceController->index.*())'
+    marketplaceshow: 'method(BBS\ConnectYou\Controller\MarketplaceController->show.*())'
+    marketplacedelete: 'method(BBS\ConnectYou\Controller\MarketplaceController->delete.*())'
+    marketplaceedit: 'method(BBS\ConnectYou\Controller\MarketplaceController->edit.*())'
+    marketplaceupdate: 'method(BBS\ConnectYou\Controller\MarketplaceController->update.*())'
+    marketplacenew: 'method(BBS\ConnectYou\Controller\MarketplaceController->new.*())'
+    marketplacecreate: 'method(BBS\ConnectYou\Controller\MarketplaceController->create.*())'
+    marketplacearchiveproject: 'method(BBS\ConnectYou\Controller\MarketplaceController->archiveproject.*())'
+
+    pinboard: 'method(BBS\ConnectYou\Controller\PinboardController->.*Action())'
 roles:
-  Admin: []
   Teacher: []
   Client: []
   Student: []
+acls:
+  Everybody:
+    methods:
+      login: GRANT
+  Teacher:
+    methods:
+      account: GRANT
+      admin: GRANT
+      marketplace: GRANT
+      pinboard: GRANT
+  Student:
+    methods:
+      admin: DENY
+      account: DENY
+      marketplace: GRANT
+      marketplacedelete: DENY
+      marketplaceedit: DENY
+      marketplaceupdate: DENY
+      marketplacenew: DENY
+      marketplacecreate: DENY
+      marketplacearchiveproject: DENY
+      pinboard: GRANT
+  Client:
+    methods:
+      admin: DENY
+      account: GRANT
+      marketplace: GRANT
+      marketplaceindex: GRANT
+      marketplaceshow: GRANT
+      marketplacedelete: DENY
+      marketplaceedit: DENY
+      marketplaceupdate: DENY
+      marketplacenew: GRANT
+      marketplacecreate: GRANT
+      marketplacearchiveproject: DENY
+      pinboard: GRANT

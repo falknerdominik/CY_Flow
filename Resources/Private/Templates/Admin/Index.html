@@ -1,12 +1,20 @@
 <f:layout name="Admin" />
 
 <f:section name="Content">
-    <nav>
-        <ul>
-            <li><f:link.action action="activeprojectspdf">Liste aller aktiven Projekte</f:link.action></li>
-            <li><f:link.action action="archivedprojectspdf">Liste aller archivierten Projekte</f:link.action></li>
-            <li><f:link.action action="clientspdf">Liste aller Auftraggeber</f:link.action></li>
-            <li><f:link.action action="export">DB aktualisieren</f:link.action> </li>
-        </ul>
-    </nav>
+    <div id="wrapper">
+        <div id="pdfs">
+            <h1>Ausdrucke</h1>
+                <ul>
+                    <li><f:link.action action="activeprojectspdf">Liste aller aktiven Projekte</f:link.action></li>
+                    <li><f:link.action action="archivedprojectspdf">Liste aller archivierten Projekte</f:link.action></li>
+                    <li><f:link.action action="clientspdf">Liste aller Auftraggeber</f:link.action></li>
+                </ul>
+        </div>
+        <div id="db">
+            <h1>Datenbank</h1>
+                <ul>
+                    <li><f:link.action action="export">Projekte Exportieren</f:link.action></li>
+                </ul>
+        </div>
+    </div>
 </f:section>

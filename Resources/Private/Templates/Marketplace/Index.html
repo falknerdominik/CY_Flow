@@ -5,20 +5,20 @@
     <div id="projectnavigation">
         <f:security.ifHasRole role="BBS.ConnectYou:Client">
             <f:then>
-                <f:link.action action="new">+ Projekt hinzufügen</f:link.action>
+                <f:link.action action="new"><img src="Resources/Public/images/marketplace/project_plus.png"  id="project_plus" /> Projekt hinzufügen</f:link.action>
             </f:then>
             <f:else>
                 <f:security.ifHasRole role="BBS.ConnectYou:Teacher">
-                    <f:link.action action="new">+ Projekt hinzufügen</f:link.action>
+                    <f:link.action action="new"><img src="Resources/Public/images/marketplace/project_plus.png"  id="project_plus" /> Projekt hinzufügen</f:link.action>
                 </f:security.ifHasRole>
             </f:else>
         </f:security.ifHasRole>
     </div>
     <hr>
 
+    <f:comment>Die Projekte</f:comment>
    <f:if condition="<f:count>{projects}</f:count>">
         <f:then>
-
             <div id="projects">
                 <f:flashMessages />
                 <f:for each="{projects}" as="project">
@@ -26,7 +26,7 @@
                         <div class="col-md-2 col-md-offset-1">
 
                             <img src="http://placehold.it/100x100" alt="projectIMG" />
-                            <h4>{project.name}</h4>
+                            <h1>{project.name}</h1>
                             <hr />
                             <h6>{project.type}</h6>
                             <p><f:format.crop maxCharacters="229">{project.description}...</f:format.crop></p>
@@ -36,12 +36,42 @@
                                 <f:then>
                                     <span id="delete"><f:link.action action="delete" arguments="{project : project}">x</f:link.action></span>
                                     <span id="edit"><f:link.action action="edit" arguments="{project : project}">e</f:link.action></span>
+                                    <span id="archive"><f:link.action action="archiveproject" arguments="{project : project}">a</f:link.action> </span>
                                 </f:then>
                             </f:security.ifHasRole>
 
                         </div>
                     </f:link.action>
                 </f:for>
+
+                <f:for each="{archivedProjects}" as="project">
+                    <f:link.action action="show" arguments="{project : project}">
+                        <div class="col-md-2 col-md-offset-1" style="display: none;" data-year="{project.year}">
+
+                            <img src="http://placehold.it/100x100" alt="projectIMG" />
+                            <h1>{project.name}</h1>
+                            <hr />
+                            <h6>{project.type}</h6>
+                            <p><f:format.crop maxCharacters="229">{project.description}...</f:format.crop></p>
+                            <p><f:link.action action="show" arguments="{project : project}"> >> Mehr</f:link.action></p>
+
+                            <f:security.ifHasRole role="BBS.ConnectYou:Teacher">
+                                <f:then>
+                                    <span id="delete"><f:link.action action="delete" arguments="{project : project}">x</f:link.action></span>
+                                    <span id="edit"><f:link.action action="edit" arguments="{project : project}">e</f:link.action></span>
+                                    <span id="archive"><f:link.action action="archiveproject" arguments="{project : project}">a</f:link.action> </span>
+                                </f:then>
+                            </f:security.ifHasRole>
+
+                        </div>
+                    </f:link.action>
+                </f:for>
+
+                <f:security.ifHasRole role="BBS.ConnectYou:Teacher">
+                    <div id="more">
+                        <p>Archivierte Projekte Laden</p>
+                    </div>
+                </f:security.ifHasRole>
             </div>
 
         </f:then>

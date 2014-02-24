@@ -1,80 +1,85 @@
 <div id="head">
 
-    <div id="leiste"></div>
+    <div id="leiste">
+        <div id="blind_fleck"></div>
+    </div>
 
-    <div id="logo">
+    <div id="wrapper_header">
 
-        <nav>
-            <ul>
-                <li class="cat1">
-                    <img alt="CY" src="Resources/Public/images/general/header_logo_weis.png" />
-                    <ul>
-                        <f:comment>Jeder darf auf den Marketplace ... </f:comment>
-                        <li>
-                            <f:link.action action="index" controller="Marketplace">Marketplace</f:link.action>
-                        </li>
+        <img id="titlefield" src="Resources/Public/images/marketplace/mp_header_v7.png" alt="header" />
 
-                        <f:security.ifHasRole role="BBS.ConnectYou:Teacher">
+    </div>
+
+    <div id="inner_wrapper">
+        <div id="logo">
+            <nav>
+                <ul>
+                    <li class="cat1">
+                        <img alt="CY" src="Resources/Public/images/general/header_logo_weis.png" />
+                        <ul>
+                            <f:comment>Jeder darf auf den Marketplace ... </f:comment>
                             <li>
-                                <f:link.action action="index" controller="Admin">Adminpanel</f:link.action>
+                                <f:link.action action="index" controller="Marketplace">Marketplace</f:link.action>
                             </li>
-                        </f:security.ifHasRole>
 
-                        <f:comment>
-                            Prüft ob ein Projekt dem User zugeteilt ist und zeigt den Jeweiligen Link an
-                            ("zum Marketplace" wird nur angezigt auf der Pinnwand d.h. dort ist {userproject} == NULL
-                        </f:comment>
-                        <f:if condition="{userproject}">
-                            <f:then>
+                            <f:security.ifHasRole role="BBS.ConnectYou:Teacher">
                                 <li>
-                                    <f:link.action action="index" controller="Pinboard" arguments="{project : userproject}">Pinnwand</f:link.action>
+                                    <f:link.action action="index" controller="Admin">Adminpanel</f:link.action>
                                 </li>
-                            </f:then>
-                            <f:else>
-                                <f:comment>Wenn der User ein Student ist wird zusätzlich ein Link zum Zeitmanagement angezeigt</f:comment>
-                                <f:if condition="{isStudent}">
-                                    <f:then>
-                                        <li>
-                                            <f:link.action action="index" controller="Marketplace">Marktplatz</f:link.action>
-                                        </li>
-                                        <li>
-                                            <f:link.action action="assignments" controller="Pinboard" arguments="{project : project}">Zeitmanagement</f:link.action>
-                                        </li>
-                                    </f:then>
-                                </f:if>
-                            </f:else>
-                        </f:if>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
+                            </f:security.ifHasRole>
 
+                            <f:comment>
+                                Prüft ob ein Projekt dem User zugeteilt ist und zeigt den Jeweiligen Link an
+                                ("zum Marketplace" wird nur angezigt auf der Pinnwand d.h. dort ist {userproject} == NULL
+                            </f:comment>
+                            <f:if condition="{userproject}">
+                                <f:then>
+                                    <li>
+                                        <f:link.action action="index" controller="Pinboard" arguments="{project : userproject}">Pinnwand</f:link.action>
+                                    </li>
+                                </f:then>
+                                <f:else>
+                                    <f:comment>Wenn der User ein Student ist wird zusätzlich ein Link zum Zeitmanagement angezeigt</f:comment>
+                                    <f:if condition="{isStudent}">
+                                        <f:then>
+                                            <li>
+                                                <f:link.action action="index" controller="Marketplace">Marktplatz</f:link.action>
+                                            </li>
+                                            <li>
+                                                <f:link.action action="assignments" controller="Pinboard" arguments="{project : project}">Zeitmanagement</f:link.action>
+                                            </li>
+                                        </f:then>
+                                    </f:if>
+                                </f:else>
+                            </f:if>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div id="sidemenuright">
+            <nav>
+                <ul>
+                    <li class="cat2">
+                       <!-- <a href="#">Hilfe</a>-->
+                    </li>
+                    <li class="cat3">
+                        <a href="#">{username}</a>
+                        <ul>
+                            <li>
+                                <f:security.ifHasRole role="BBS.ConnectYou:Client">
+                                    <f:link.action action="index" controller="Account">Einstellungen</f:link.action>
+                                </f:security.ifHasRole>
+                            </li>
+                            <li>
+                                <f:link.action action="logout" id="acc_logout" controller="Login">Logout</f:link.action>
+                            </li>
+                        </ul>
+
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
-
-    <div id="sidemenuright">
-        <nav>
-            <ul>
-                <li class="cat2">
-                    <a href="#">Hilfe</a>
-                </li>
-                <li class="cat3">
-                    <a href="#">{username}</a>
-                    <ul>
-                        <li>
-                            <f:link.action action="index" controller="Account">Einstellungen</f:link.action>
-                        </li>
-                        <li>
-                            <f:link.action action="logout" id="acc_logout" controller="Login">Logout</f:link.action>
-                        </li>
-                    </ul>
-
-                </li>
-            </ul>
-        </nav>
-    </div>
-
-    <div id="titlefield">
-        {titel}
-    </div>
-
 </div>

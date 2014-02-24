@@ -45,6 +45,12 @@ class MarketplaceController extends ActionController {
     protected $studentRepository;
 
     /**
+     * @Flow\Inject
+     * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
+     */
+    protected $persistenceManager;
+
+    /**
      * Diese Funktion wird immer aufgerufen wenn eine View dieses Controllers aufgerufen wird, d.h. wird sie dazu
      * verwenden 'globale' Variablen für die Views festzusetzen (z.b.: Nutzername für etc wird den Views immer übergeben)
      *
@@ -64,7 +70,8 @@ class MarketplaceController extends ActionController {
 	 * @return void
 	 */
 	public function indexAction() {
-		$this->view->assign('projects', $this->projectRepository->findAll());
+		$this->view->assign('projects', $this->projectRepository->findActiveProjects());
+        $this->view->assign('archivedProjects', $this->projectRepository->findArchivedProjects());
     }
 
 	/**
@@ -141,9 +148,29 @@ class MarketplaceController extends ActionController {
 	 */
 	public function deleteAction(\BBS\ConnectYou\Domain\Model\Project $project) {
 		$this->projectRepository->remove($project);
-		$this->addFlashMessage('Projekt "' . $project->getName() . '" wurde gelöscht.');
+
+        // Ist nötig da Flow nichts persisted was nicht über POST(statt GET) gemacht wird (leider noch keine möglichkeit über f:link.action)
+        $this->persistenceManager->persistAll();
+
+        $this->addFlashMessage('Projekt "' . $project->getName() . '" wurde gelöscht.');
 		$this->redirect('index');
 	}
+
+    /**
+     * @param \BBS\ConnectYou\Domain\Model\Project $project
+     * @return void
+     */
+    public function archiveprojectAction(\BBS\ConnectYou\Domain\Model\Project $project) {
+        $project->setArchived(TRUE);
+        $this->projectRepository->update($project);
+
+        // Ist nötig da Flow nichts persisted was nicht über POST(statt GET) gemacht wird (leider noch keine möglichkeit über f:link.action)
+        // link: http://stackoverflow.com/questions/18355310/flow3-definitive-guide-cant-save-blog-in-database
+        $this->persistenceManager->persistAll();
+
+        $this->addFlashMessage('Projekt "' . $project->getName() . '" wurde archiviert.');
+        $this->redirect('index');
+    }
 
     /*
      * Eigene Funktionen

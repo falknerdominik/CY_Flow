@@ -1,4 +1,116 @@
 /*****************
+ * Top-Header//Diksn
+*****************/
+
+
+#inner_wrapper {
+    margin: 0;
+    padding-top: 0.4%;
+    position:relative;
+    width:100%;
+    height: 3em;
+    overflow:visible;
+    background-image: url("../../images/backgrounds/tweed.png");
+    background-repeat:repeat;
+}
+
+#leiste {
+    position: absolute;
+    z-index: 3;
+    width: 100%;
+    height: 4px;
+    margin-top: 4px;
+    background-color: #2980b9;
+}
+
+#titlefield {
+    position: relative;
+    margin-top: 4px;
+}
+
+#blind_fleck {
+    position: relative;
+    width: 772px;
+    height: 4px;
+    margin: 0 auto;
+    background-image: url("../../images/backgrounds/tweed.png");
+    background-repeat:repeat;
+}
+
+#wrapper_header {
+    position:absolute;
+    width:100%;
+    z-index:3;
+    text-align:center;
+}
+
+#wrapper_header2 {
+    position:relative;
+    width:initial;
+    margin-left: 50%;
+    z-index:3;
+}
+
+#logo {
+    font-family: 'Lato' !important;
+    position: relative;
+    margin-left: 0.3%;
+    height:100%;
+    width:auto;
+    float: left;
+    z-index:4;
+}
+
+
+#logo img {
+    width:100%;
+    float:left;
+}
+#logo p {
+    font-family: 'Lato' !important;
+    position:relative;
+    text-align:center;
+    margin-top: 6.5%;
+    margin-left: 5px;
+    float:right;
+    font-size: 16pt;
+    font-weight: 200;
+    color:#FFF;
+}
+
+
+#sidemenuright {
+    position:relative;
+    height:100%;
+    width:auto;
+    margin-right: 1%;
+    float:right;
+    text-align:center;
+    z-index:4;
+}
+
+#sidemenuright a {
+    text-decoration:none;
+    font-size: 12pt;
+    font-weight: 100;
+    color:#FFF;
+}
+
+#acc_logout {
+    margin-left: 10px;
+}
+
+
+.cat1 ul li a:hover{
+    background: rgba(41, 128, 185, 1) !important;
+}
+
+.cat2 ul li a:hover  {
+    background: rgba(41, 128, 185, 1) !important;
+}
+
+
+/*****************
  * Sidemenü
 ******************/
 
@@ -7,15 +119,13 @@
 }
 
 #logo ul li ul{
-    margin-top: 14.9%;
-    margin-left: -2%;
+    margin-top: 2.6em;
     visibility: hidden;
     position: absolute;
     padding:0px;
 }
 
 #sidemenuright ul li ul{
-    width: 69%;
     text-align: left;
     visibility: hidden;
     position: absolute;
@@ -39,29 +149,40 @@
     text-decoration: none;
     display: block;
     color: white;
-    padding: 0.9em 1.8em 0.7em 2.3em;
+    padding: 0.5em 1.8em 0.4em 1em;
 }
 
 #logo ul li a {
     text-decoration: none;
     display: block;
     color: white;
-    padding: 0.9em 1.8em 0.8em 2.3em;
+    padding: 0.8em 0.9em 0.8em 1em;
+}
+
+#logo ul li.cat1{
+    width: 50%;
+}
+
+#logo ul li.cat1:hover {
+    transition: ease linear -0.3s;
 }
 
 #logo ul li.cat1:hover > ul li a {
-    background-image: url("../../images/backgrounds/pinboard.png");
-
-    transition: background-image 1s ease-in;
-    -webkit-box-shadow: 2px 2px 3px rgba(0,0,0,.6);
-    -moz-box-shadow: 2px 2px 3px rgba(0,0,0,.6);
-    box-shadow: 2px 2px 3px rgba(0,0,0,.6);
+    background: rgba(41, 128, 185, .5);
 }
-#sidemenuright ul li.cat3:hover > ul li a   {
-    background-image: url("../../images/backgrounds/pinboard.png");
 
-    transition: background-image 1s ease-in;
-    -webkit-box-shadow: 2px 2px 3px rgba(0,0,0,.6);
-    -moz-box-shadow: 2px 2px 3px rgba(0,0,0,.6);
-    box-shadow: 2px 2px 3px rgba(0,0,0,.6);
+#logo ul li.cat1:hover > a{
+    background: rgba(41, 128, 185, .5);
+}
+
+#logo ul li.cat1:hover >  ul li {
+    background: rgba(41, 128, 185, .5);
+}
+
+#sidemenuright ul li.cat3:hover > ul li a {
+    background: rgba(41, 128, 185, .5);
+}
+
+#sidemenuright ul li.cat3:hover > ul li {
+    background: rgba(41, 128, 185, .5);
 }

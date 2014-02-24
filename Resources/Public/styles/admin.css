@@ -16,100 +16,28 @@ ul {
     padding: 0;
 }
 
-/*****************
- * Top-Header//Diksn
-*****************/
+/**************
+ * Allgemein
+ *************/
 
-#head {
-    margin: 0;
-    padding-top: 0.4%;
-    position:relative;
-    width:100%;
-    height: 4em;
-    overflow:visible;
-    -webkit-box-shadow: 2px 2px 3px rgba(0,0,0,.6);
-    -moz-box-shadow: 2px 2px 3px rgba(0,0,0,.6);
-    box-shadow: 2px 2px 3px rgba(0,0,0,.6);
-    background-image: url("../images/backgrounds/pinboard.png");
-    background-repeat:repeat;
+#wrapper{
+    width: 60%;
+    margin: auto;
+    min-height: 100%;
+    margin-top: 5%;
 }
 
-#leiste {
-    position:relative;
-    width: 100%;
-    height: 4px;
-    background-color: #3498db;
-    -webkit-box-shadow: 3px 4px 7px rgba(0,0,0,.7);
-    -moz-box-shadow: 3px 4px 7px rgba(0,0,0,.7);
-    box-shadow: 3px 4px 7px rgba(0,0,0,.7);
-}
-
-#titlefield {
-    position: relative;
-    margin: 0 auto;
-    width: 303px;
-    height: 1.2em;
-
-    background-color: #3498db;
-    -webkit-box-shadow: 3px 4px 7px rgba(0,0,0,.7);
-    -moz-box-shadow: 3px 4px 7px rgba(0,0,0,.7);
-    box-shadow: 3px 4px 7px rgba(0,0,0,.7);
-
-    text-align:center;
-    color:#FFF;
-    font-family: 'Lato';
-    font-size: 35pt;
-    font-weight: 400;
+#wrapper ul{
+    margin-left: 25%;
 }
 
 
-
-#logo {
-    font-family: 'Lato' !important;
-    position: relative;
-    margin-left: 0.3%;
-    height:100%;
-    width:auto;
-    float: left;
+#pdfs{
+    margin-bottom: 5%;
 }
 
-
-#logo img {
-    width:60%;
-    height: 50%;
-    float:left;
-}
-#logo p {
-    font-family: 'Lato' !important;
-    position:relative;
-    text-align:center;
-    margin-top: 6.5%;
-    margin-left: 5px;
-    float:right;
-    font-size: 16pt;
-    font-weight: 200;
-    color:#FFF;
-}
-
-
-#sidemenuright {
-    position:relative;
-    height:100%;
-    width:auto;
-    margin-right: 1%;
-    float:right;
-    text-align:center;
-}
-
-#sidemenuright a {
-    text-decoration:none;
-    font-size: 12pt;
-    font-weight: 100;
-    color:#FFF;
-}
-
-#acc_logout {
-    margin-left:10px;
+#db{
+    border-top: 1px solid black
 }
 
 /**************
@@ -117,9 +45,16 @@ ul {
  *************/
 
 form{
+    margin-left: 45%;
     margin-top: 5em;
+    min-height: 100%;
 }
 
 input[type="text"], input[type="password"]{
     height:33px;
+}
+
+select{
+    width: 25%;
+    min-height: 12px;
 }

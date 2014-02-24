@@ -29,24 +29,32 @@ class PinboardController extends \TYPO3\Flow\Mvc\Controller\ActionController {
      */
     protected $projectRepository;
 
+    /**
+     * Diese Funktion wird immer aufgerufen wenn eine View dieses Controllers aufgerufen wird, d.h. wird sie dazu
+     * verwenden 'globale' Variablen für die Views festzusetzen (z.b.: Nutzername für etc wird den Views immer übergeben)
+     *
+     * @return void
+     */
+    protected function initializeView(\TYPO3\Flow\Mvc\View\ViewInterface $view){
+        // finde das zugewiesene Projekt wenn vorhanden und der Nutzer kein Lehrer ist
+        if(!in_array("BBS.ConnectYou:Teacher", $this->securityContext->getAccount()->getRoles()) || !in_array("BBS.ConnectYou:Client", $this->securityContext->getAccount()->getRoles())){
+            $view->assign('userproject', $this->findUserProject());
+        }
+
+        // Benutzername für Benutzermenü
+        $view->assign('username', $this->securityContext->getAccount()->getAccountIdentifier());
+    }
+
 	/**
      * @param BBS\ConnectYou\Domain\Model\Project $project
 	 * @return void
 	 */
 	public function indexAction(\BBS\ConnectYou\Domain\Model\Project $project = NULL) { // Zeigt die Pinnwand an (inkl. Widgets)
-
         // Assign das Projekt selber
         if($project)
             $this->view->assign('project', $project);
         else
             $this->view->assign('project', $this->findUserProject());
-
-        // Prüft ob er Ein Student ist
-        if($this->securityContext->getParty()->getName())
-            $this->view->assign('isStudent', "TRUE");
-
-        // Der Benutzername für den Logout Button
-        $this->view->assign('username', $this->securityContext->getAccount()->getAccountIdentifier());
 	}
 
 
@@ -68,31 +76,10 @@ class PinboardController extends \TYPO3\Flow\Mvc\Controller\ActionController {
      */
     protected function findUserProject(){
         // Zuerst der Party
-        $account = $this->securityContext->getAccount()->getParty();
-
-        // Alle Projekte Laden
-        $projects = $this->projectRepository->findAll();
+        $party = $this->securityContext->getAccount()->getParty();
 
         // Initalisiert die Variable für spätere nutzung
-        $projectDesUsers = NULL;
-
-        if($projects){ // Prüft ob Projekte vorhanden sind
-            // Wenn der User ein Client ist
-            foreach ($projects as $project) {// Gehe durch alle Projekte
-                if($project->getClient() && $project->getClient()->getName() == $account->getName()) // Client != NULL und der Name des Clienten mit dem eingeloggten User Überinstimmt
-                    $projectDesUsers = $project; // Das Projekt in dem der User teilnimmt
-            }
-
-            // Wenn der User ein Student ist
-            foreach ($projects as $project) { // Gehe durch alle Projekte
-                if($project->getTeam()){
-                    foreach($project->getTeam() as $teammember){ // Gehe durch alle Teammitglieder
-                        if($teammember->getName() == $account->getName())
-                            $projectDesUsers = $project; // Das Projekt in dem der User teilnimmt
-                    }
-                }
-            }
-        }
+        $projectDesUsers = $party->getProject();
 
         // Returned das Projekt ... Wenn Gefunden Sonst NULL
         return $projectDesUsers;

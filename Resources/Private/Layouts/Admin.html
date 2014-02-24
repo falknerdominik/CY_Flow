@@ -14,17 +14,26 @@
     <link href="Resources/Public/styles/general/bootstrap-responsive.css" type="text/css" rel="stylesheet" />
     <link href="Resources/Public/styles/general/flat-ui.css" type="text/css" rel="stylesheet" />
     <link href="Resources/Public/styles/general/flashMessage.css" type="text/css" rel="stylesheet" />
+
     <link href="Resources/Public/styles/admin.css" type="text/css" rel="stylesheet" />
     <link href="Resources/Public/styles/general/nav.css" type="text/css" rel="stylesheet" />
+    <link href="Resources/Public/styles/general/footer.css" type="text/css" rel="stylesheet" />
+
+    <link href="Resources/Public/styles/marketplace/chosen/chosen.css" type="text/css" rel="stylesheet" />
 
     <f:comment>Die Script inkl. Jquery</f:comment>
     <script src="Resources/Public/js/general/jquery.js" type="text/javascript"></script>
+    <script src="Resources/Public/js/marketplace/chosen.jquery.min.js" type="text/javascript"></script>
+    <script src="Resources/Public/js/admin.js" type="text/javascript"></script>
     <script src="Resources/Public/js/general/flashMessage.js" type="text/javascript"></script>
 </head>
 <body>
-<f:render partial="general/nav" arguments="{username : username, userproject : userproject, titel : 'Admin'}"/>
-<f:flashMessages class="flashmessages" />
+    <f:render partial="general/nav" arguments="{username : username, userproject : userproject, titel : 'Admin'}"/>
+    <f:flashMessages class="flashmessages" />
 
-<f:render section="Content" />
+    <f:render section="Content" />
+
+
+    <f:render partial="general/footer" />
 </body>
 </html>

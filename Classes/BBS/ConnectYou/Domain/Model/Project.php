@@ -89,7 +89,7 @@ class Project {
 
     public function __construct() {
         $this->team = new ArrayCollection();
-        $this->assignments = new ArrayCollection();
+        #$this->assignments = new ArrayCollection();
         $this->widgetsPrivate = new ArrayCollection();
         $this->widgetsPublic = new ArrayCollection();
     }
@@ -207,8 +207,10 @@ class Project {
 	 * @return void
 	 */
 	public function setClient($Client) {
-        $Client->setProject($this);
-        $this->client = $Client;
+        if($Client){
+            $Client->setProject($this);
+            $this->client = $Client;
+        }
 	}
 
 	/**
@@ -252,10 +254,7 @@ class Project {
      * @return void
      */
     public function setArchived($archived){
-        if($archived != NULL)
             $this->archived = $archived;
-        else
-            $this->archived = 0;
     }
 
     /**

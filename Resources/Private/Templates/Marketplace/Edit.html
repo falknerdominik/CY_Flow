@@ -8,8 +8,9 @@
             <h1>Projekt "{project.name}" bearbeiten</h1>
             <f:form action="update" name="project" object="{project}" >
                 <f:render partial="Marketplace/FormFields" arguments="{_all}" />
-                <f:form.submit value="Speichern" class="btn btn-large btn-block btn-primary"/>
+                <f:form.submit value="Speichern" class="btn btn-primary"/>
             </f:form>
+            <f:link.action action="index">Zurück zum Marketplatz</f:link.action>
         </div>
     </div>
 </f:section>
