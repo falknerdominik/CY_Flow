@@ -6,6 +6,8 @@
 
 <f:section name="Content">
 
+    <f:link.action action="index"><p class="btn btn-default back-button">Zurück zum Login</p></f:link.action>
+
     <f:flashMessages />
 
     <f:comment>Trennstrich</f:comment>
@@ -46,9 +48,13 @@
                     <td><label id="ltelephone">Telefonnummer:</label></td><td> <input name="telephone" type="text" >	</td>
                 </tr>
             </table>
+            <br/>
+            <input type="checkbox" required="TRUE">Ich stimme den <a href="Resources/Public/documents/termsofservice.pdf">Nutzungsbedingungen</a> zu!</input><br/><br/>
+
+            <f:form.submit value="Registrieren" />
         </div>
 
-        <f:form.submit value="Registrieren" />
+
     </f:form>
 
 </f:section>

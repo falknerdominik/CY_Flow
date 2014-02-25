@@ -341,6 +341,20 @@ textarea {
     text-align: center;
 }
 
+/***
+ * Absolute
+ ***/
+.back-button{
+    position: fixed;
+    top: 10%;
+    left: 1.5%;
+    z-index: 3;
+}
+
+.back-button a{
+    color: white;
+}
+
 
 /*****************
  * Chosen - Falkner

@@ -72,12 +72,6 @@ class AdminController extends \TYPO3\Flow\Mvc\Controller\ActionController {
         // Für jede View - Anzeigen des Benutzernamens .. Link zur Pinnwand
         $this->view->assign('username', $this->securityContext->getAccount()->getAccountIdentifier());
 
-        // finde das zugewiesene Projekt wenn vorhanden
-        $userproject = $this->findUserProject();
-        if($userproject){
-            $this->view->assign('userproject', $userproject);
-        }
-
 
 	}
 

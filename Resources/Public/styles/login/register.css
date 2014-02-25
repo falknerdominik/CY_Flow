@@ -63,3 +63,17 @@ form[name=reg] {
 form h1 {
     float:right;
 }
+
+/***
+ * Absolute
+ ***/
+.back-button{
+    position: fixed;
+    top: 3%;
+    left: 2%;
+    z-index: 10;
+}
+
+.back-button a{
+    color: white;
+}
