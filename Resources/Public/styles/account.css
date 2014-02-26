@@ -21,25 +21,44 @@ ul {
  *************/
 
 #container {
-    overflow:scroll;
+    overflow:hidden;
     position:relative;
     width: 66%;
     margin: 0 auto;
-    margin-top: 4%;
-    height: 210em;
+    margin-top: 1em;
     border-left: 1px dotted #666666;
     border-right: 1px dotted #666666;
+    min-height:85%;
 }
 
 #settings {
     overflow:scroll;
     height:auto;
     width: 90%;
-    background-color:rgba(255,255,255,1);
     margin-left: auto;
     margin-right: auto;
-    border:solid rgba(204,204,204,1) 2px;
 }
+/*
+#daten label {
+font-weight:200 !important;
+margin-right:1em;
+margin-left:3em !important;
+
+}
+*/
+
+label {
+    font-weight:200 !important;
+    margin-right:1em;
+}
+#daten input {
+    margin-left:1em !important;
+    margin-right:1em;
+
+}
+
+
+
 
 #settingsoption a{
     color: grey;
@@ -49,8 +68,8 @@ ul {
 }
 
 #settingsoption {
-    margin-left:25%;
-    margin-top: 0.5%;
+    margin-left:20%;
+    margin-top: 1em;
 }
 
 hr {
@@ -64,13 +83,13 @@ hr {
 #firmenname {
     margin: 0 auto;
     font-size: 20pt;
-    margin-bottom: 30px;
+    margin-top:1em;
+    margin-bottom: 1em;
     border-spacing: 20px;
 }
 
 #daten {
     margin: 0 auto;
-    text-align: center;
     border-spacing: 10px;
 }
 input[name=companyName] {
@@ -80,6 +99,10 @@ input[name=companyName] {
 input[name=submit] {
     padding: 0px;
     border-radius: 0px;
+    width:192px !important;
+    margin-left: auto;
+    padding: 6px 12px !important;
+    margin-top:1em;
 }
 
 #wrapper_settings {

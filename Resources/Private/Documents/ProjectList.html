@@ -27,10 +27,10 @@
         <tr>
             <td>{project.name}</td>
             <td>{project.type}</td>
-            <td>{project.description}</td>
+            <td class="littlefont">{project.description}</td>
             <td>{project.client.name}</td>
             <td>{project.caretaker.fname} {project.caretaker.lname}</td>
-            <td>
+            <td class="littlefont">
                 <f:if condition="<f:count>{project.team}</f:count>">
                     <f:then>
                         <ol>

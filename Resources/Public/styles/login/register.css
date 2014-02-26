@@ -10,39 +10,49 @@ html, body {
 
 
 body {
-    background-image:url(../images/Background/debut_light.png);
+    background-image:url(../../images/backgrounds/debut_light.png);
     background-repeat:repeat;
 }
+
+/*****************
+* Content - Diksn
+******************/
+
 
 
 #bild_a {
     position: absolute;
     left: 50%;
-    width: 40%;
-    margin-left:-20%;
-    clip:rect(0 100px auto 0);
+    width: 30%;
+    margin-top:3em;
+    margin-left:-15%;
+    clip:rect(0 0px auto 0);
+    transition: ease 500ms;
 }
 
 #bild_b {
     position: relative;
     left: 50%;
-    width: 40%;
-    margin-left: -20%;
+    width: 30%;
+    margin-left:-15%;
+    margin-top:3em;
 }
 
 form[name=reg] {
     position:relative;
     width:50%;
     height:inherit;
-    margin-left: -1em;
+    margin-top: 1em;
 }
 
 
-
 .wrapper{
-    clear:both;
-    float:right;
-    margin-top: 2em;
+    clear: both;
+    float: right;
+    margin-top: 1em;
+    padding-bottom: 1em;
+    padding-top: 1em;
+    border-top: 2px solid lightgray;
 }
 
 #main {
@@ -50,18 +60,49 @@ form[name=reg] {
     clear:both;
 }
 
-
-#trennung {
-    position:absolute;
-    left: 50%;
-    height: 200%;
-    width: 2px;
-    background-color:#999;
-
+#main input {
+    margin-left: 3em;
 }
 
-form h1 {
+#bilder_content{
+    width: 100%;
+    height: auto;
+}
+
+input[type="text"]{
+    margin-right:1em;
+}
+
+form h2 {
     float:right;
+    font-weight:200;
+    margin-top:0px;
+}
+
+#student {
+    position: absolute;
+    width: 50%;
+    margin-left: 50%;
+    padding-left: 1em;
+}
+
+#student h2 {
+    font-weight:100;
+    opacity:0.5;
+    margin-top:0px;
+}
+
+#student p {
+    font-weight:100;
+    opacity:0.5;
+}
+
+label {
+    font-weight:100;
+}
+
+#tables {
+    overflow:hidden;
 }
 
 /***

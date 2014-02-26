@@ -31,7 +31,6 @@ class Teacher extends \TYPO3\Party\Domain\Model\AbstractParty {
 
     /**
      * @var string
-     * @FLOW\Identity
      */
     protected $bbsid;
 

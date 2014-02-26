@@ -33,8 +33,9 @@
 
 <f:comment>Prüft wenn der Nutzer ein Student ist ob er teil des Projektes ist!</f:comment>
 <f:security.ifHasRole role="BBS.ConnectYou:Student">
-    <f:if condition="{project.Persistence_Object_Identifier} == {userproject.Persistence_Object_Identifier}">
-        <f:then>
+    <f:if condition="{project.name} == {userproject.name}">
+        <f:if condition="{project.client}">
+            <f:then>
             <h3> Auftraggeber </h3>
             <ul>
                 <li>{project.client.name}</li>
@@ -43,7 +44,8 @@
                 <li>E-Mail: {project.client.email}</li>
                 <li>Tel.: {project.client.telephone}</li>
             </ul>
-        </f:then>
+            </f:then>
+        </f:if>
     </f:if>
 </f:security.ifHasRole>
 

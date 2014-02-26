@@ -18,9 +18,9 @@
     position: absolute;
     z-index: 3;
     width: 100%;
-    height: 4px;
+    height: 6px;
     margin-top: 4px;
-    background-color: #2980b9;
+    background-color: #226999;
 }
 
 #titlefield {
@@ -31,7 +31,7 @@
 #blind_fleck {
     position: relative;
     width: 772px;
-    height: 4px;
+    height: 6px;
     margin: 0 auto;
     background-image: url("../../images/backgrounds/tweed.png");
     background-repeat:repeat;
@@ -186,4 +186,15 @@
 
 #sidemenuright ul li.cat3:hover > ul li {
     background: rgba(41, 128, 185, .5);
+}
+
+
+#ullogopinnwand {
+    margin-top: -2.8em !important;
+    margin-left: 7.4em !important;
+    width: auto;
+}
+
+#ullogopinnwand li {
+    border-top: border-top: 1px solid white !important;
 }

@@ -82,7 +82,6 @@ class BBSProvider extends \TYPO3\Flow\Security\Authentication\Provider\Persisted
                                 $defaultRole = "BBS.ConnectYou:Student";
 
                             $account = $this->accountFactory->createAccountWithPassword($credentials['username'], "", array($defaultRole), $this->name);
-
 							$this->accountRepository->add($account); // Fügt den Account hinzu
 
 							$this->createParty($account, $userarray); // Erstellt die Party
@@ -91,6 +90,8 @@ class BBSProvider extends \TYPO3\Flow\Security\Authentication\Provider\Persisted
 						if ($account instanceof \TYPO3\Flow\Security\Account) { // Wenn ein Account vorhanden ist
                             if($account->getParty()->getBbsid() == $userarray['bbsid'][0]){ // Prüft ob Accont einzigartig ist
                                 $account->setCredentialsSource($this->hashService->generateHmac($credentials['password'])); // Passwort Cachen
+                                // Account Updaten
+
                                 $authenticationToken->setAuthenticationStatus(TokenInterface::AUTHENTICATION_SUCCESSFUL); // Login Successful
                                 $authenticationToken->setAccount($account); // Setzt den Account
                             } else { // Wenn der Account NICHT einzigartig ist (d.h. schon recycled)
@@ -173,6 +174,35 @@ class BBSProvider extends \TYPO3\Flow\Security\Authentication\Provider\Persisted
             $this->studentRepository->add($newStudent);
         }
 	}
+
+    /**
+     * Updatet die Informationen eines Accounts bei jedem Login
+     *
+     * @param \TYPO3\Flow\Security\Account $account The freshly created account that should be used for this party
+     * @param array $userarray The first result returned by ldap_search
+     * @return void
+     */
+    protected function updateParty(\TYPO3\Flow\Security\Account $account, array $userarray){
+        if($userarray['bbsmemberofclass'][0] == "Teachers"){ // Wenn es sich um einen Lehrer handelt
+            $newTeacher = $account->getParty();
+            $newTeacher->setFname($userarray['givenname'][0]);
+            $newTeacher->setLname($userarray['sn'][0]);
+            $newTeacher->setEmail($userarray['mail'][0]);
+            $newTeacher->setBbsid($userarray['bbsid'][0]);
+            echo 'test';
+            $this->teacherRepository->update($newTeacher);
+
+        } else { // Wenn es ein Schüler ist
+            $newStudent = $account->getParty();
+            $newStudent->setFname($userarray['givenname'][0]);
+            $newStudent->setLname($userarray['sn'][0]);
+            $newStudent->setEmail($userarray['mail'][0]);
+            $newStudent->setClass($userarray['bbsmemberofclass'][0]);
+            $newStudent->setBbsid($userarray['bbsid'][0]);
+
+            $this->studentRepository->update($newStudent);
+        }
+    }
 
 }
 

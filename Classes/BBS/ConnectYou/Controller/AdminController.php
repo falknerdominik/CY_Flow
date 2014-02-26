@@ -72,6 +72,8 @@ class AdminController extends \TYPO3\Flow\Mvc\Controller\ActionController {
         // Für jede View - Anzeigen des Benutzernamens .. Link zur Pinnwand
         $this->view->assign('username', $this->securityContext->getAccount()->getAccountIdentifier());
 
+        $this->view->assign('projects', $this->projectRepository->findAll());
+
 
 	}
 
@@ -119,15 +121,6 @@ class AdminController extends \TYPO3\Flow\Mvc\Controller\ActionController {
         $pdf->download('ClientList' . date('d.m.Y') . '.pdf');
 
         $this->redirect('index', 'Admin');
-    }
-
-    /**
-     * Zeigt die View an um Projekt zu Exportieren (in andere Datenbank)
-     *
-     * @return void
-     */
-    public function exportAction(){
-        $this->view->assign('projects', $this->projectRepository->findAll());
     }
 
     /**

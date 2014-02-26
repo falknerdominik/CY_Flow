@@ -9,6 +9,9 @@
 
 <f:security.ifHasRole role="BBS.ConnectYou:Teacher">
     <f:then>
+        <label for="year">Jahrgang</label><br />
+        <f:form.textfield property="year" /><br />
+
         <label for="team">Team</label><br />
         <f:form.select name="team[]" class="chosen-multiple" property="team" options="{students}" multiple="multiple" optionValueField="{student}" optionLabelField="nameandclass" prependOptionLabel="Bitte wähle die Schüler aus!"/><br />
 

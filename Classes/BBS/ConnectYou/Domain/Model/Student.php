@@ -49,7 +49,6 @@ class Student extends \TYPO3\Party\Domain\Model\AbstractParty {
 
     /**
      * @var string
-     * @FLow\Identity
      */
     protected $bbsid;
 

@@ -1,60 +1,107 @@
+/*****************
+* CSS-Dateiname: marketplace.css
+ 
+* Für welche Bereiche: Marketplace
+ 
+* Notiz:
+ 
+* Author(en): Dorfer Valentin, Dikany Lucas, Falkner Dominik, Peneder Martin
+ 
+* Version: 28.01.2014
+*****************/
 
 /*****************
- * Allgemein
+* Allgemein
 *****************/
 @import url('http://fonts.googleapis.com/css?family=Lato:300,400,700');
 
 body, html {
-    height: 100%;
     margin: 0;
     padding: 0;
-    background-image: url("../images/backgrounds/debut_light.png");
-    background-repeat: repeat;
+    background-image:url(../images/backgrounds/debut_light.png);
+    background-repeat:repeat;
+    height: 100%;
 }
+
 ul {
     margin: 0;
     padding: 0;
 }
 
-/**************
- * Allgemein
- *************/
+/*****************
+* Adminpanel // Diksn
+*****************/
+#adminpanel{
+    overflow:hidden;
+    position:relative;
+    width: 66%;
+    margin: 0 auto;
+    margin-top: 3em;
+    border-left: 1px dotted #666666;
+    border-right: 1px dotted #666666;
+    padding-left: 0.5%;
+    min-height:100%;
+    text-align:center;
+}
 
-#wrapper{
+input[type=submit]{
+    border:0px;
+}
+
+input {
+    margin-bottom:1em;
+    border-radius: 0px !important;
+}
+
+label{
+    font-weight:400;
+}
+
+
+
+
+hr {
+    border: none;
+    margin: 0 auto;
+    width:60%;
+    margin-top: 3%;
+    border-top: 1px dotted #666666;
+}
+
+h1 {
+    font-weight:100;
+}
+
+input{
     width: 60%;
-    margin: auto;
-    min-height: 100%;
-    margin-top: 5%;
-}
-
-#wrapper ul{
-    margin-left: 25%;
-}
-
-
-#pdfs{
-    margin-bottom: 5%;
-}
-
-#db{
-    border-top: 1px solid black
-}
-
-/**************
- * FORM
- *************/
-
-form{
-    margin-left: 45%;
-    margin-top: 5em;
-    min-height: 100%;
-}
-
-input[type="text"], input[type="password"]{
-    height:33px;
 }
 
 select{
-    width: 25%;
-    min-height: 12px;
+    width: 60%;
+}
+
+#DB_form{
+    width:50%;
+    float:left;
+}
+
+#pdfs ul {
+    list-style-type:none;
+    font-size:16;
+    cursor:pointer;
+}
+#pdfs li:hover {
+    color:rgba(41, 128, 185, 1);
+}
+
+/*****************
+* Ausdrucke // Falkner
+*****************/
+
+#pdfs li{
+    margin-bottom: 200px;
+}
+#pdfs a{
+    color: #fff;
+    background-color: lightgray;
 }

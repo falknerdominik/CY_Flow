@@ -100,7 +100,7 @@ class MarketplaceController extends ActionController {
         // Aktuelles Datum
         $curYear = date('Y');
         $nextYear = date('Y') + 1;
-        $newProject->setYear($curYear . "-" . $nextYear);
+        $newProject->setYear($curYear . "/" . substr($nextYear,2));
 
 	    $this->projectRepository->add($newProject);
 		$this->addFlashMessage('Das Projekt "' . $newProject->getName() . '" ');

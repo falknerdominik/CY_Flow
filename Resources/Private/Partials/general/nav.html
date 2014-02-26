@@ -1,4 +1,4 @@
-<div id="head">
+<div id="head" xmlns:f="http://www.w3.org/1999/html">
 
     <div id="leiste">
         <div id="blind_fleck"></div>
@@ -34,8 +34,21 @@
                             </f:comment>
                             <f:if condition="{userproject}">
                                 <f:then>
-                                    <li>
-                                        <f:link.action action="index" controller="Pinboard" arguments="{project : userproject}">Pinnwand</f:link.action>
+                                    <li id="logopinnwand">
+                                        <a href="#">Pinnwände</a>
+                                        <ul id="ullogopinnwand">
+                                            <f:security.ifHasRole role="BBS.ConnectYou:Client">
+                                                <f:then>
+                                                    <f:for each="{userproject}" as="p">
+                                                        <f:link.action action="index" controller="Pinboard" arguments="{project : p}">{p.name}</f:link.action>
+                                                    </f:for>
+                                                </f:then>
+                                                <f:else>
+                                                    <f:link.action action="index" controller="Pinboard" arguments="{project : userproject}">{userproject.name}</f:link.action>
+                                                </f:else>
+                                            </f:security.ifHasRole>
+                                        </ul>
+
                                     </li>
                                 </f:then>
                                 <f:else>
