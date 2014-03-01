@@ -70,7 +70,7 @@ class LoginController extends ActionController {
             if($exception->getMessage()){
                 $this->addFlashMessage('Falscher Benutzername oder Passwort!'/* . $exception->getMessage()*/);
                 //$this->addFlashMessage($exception->getMessage());
-                #$this->redirect('index', 'Login');
+                $this->redirect('index', 'Login');
             }
         }
     }

@@ -1,6 +1,26 @@
 <f:layout name="Marketplace" />
 
 <f:section name="Content">
+
+    <div id="projectnavigation">
+        <f:security.ifHasRole role="BBS.ConnectYou:Client">
+            <f:then>
+                <f:link.action action="new"><img src="Resources/Public/images/marketplace/project_plus.png"  id="project_plus" /> Projekt hinzufügen</f:link.action>
+            </f:then>
+            <f:else>
+                <f:security.ifHasRole role="BBS.ConnectYou:Teacher">
+                    <f:then>
+                        <f:link.action action="new"><img src="Resources/Public/images/marketplace/project_plus.png"  id="project_plus" /> Projekt hinzufügen</f:link.action>
+                    </f:then>
+                    <f:else>
+                        <a id="project_plus"></a>
+                    </f:else>
+                </f:security.ifHasRole>
+            </f:else>
+        </f:security.ifHasRole>
+    </div>
+    <hr>
+
     <f:link.action action="index"><p class="btn btn-default back-button">Zurück zum Market</p></f:link.action>
     <div id="wrapper">
         <h1>Neues Projekt</h1>

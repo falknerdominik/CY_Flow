@@ -31,6 +31,10 @@ h1{
     font-weight: 200;
 }
 
+.btn{
+    border-radius: 0 !important;
+}
+
 
 /*****************
  * Projektübersicht // Diksn
@@ -366,14 +370,14 @@ textarea {
  * Absolute
  ***/
 .back-button{
-    position: fixed;
+    position: absolute;
     top: 10%;
     left: 1.5%;
     z-index: 3;
 }
 
 .forward-button{
-    position: fixed;
+    position: absolute;
     top: 10%;
     right: 1.5%;
     z-index: 3;
