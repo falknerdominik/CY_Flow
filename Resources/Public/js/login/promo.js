@@ -63,4 +63,8 @@ function setCSS(){
     // Einsetzen
     $('.login_bg_wrapper').css('height', height);
     $('#login_bg').css('margin-top', marginTop);
+
+    var bottom = $('.login_bg_wrapper').css('bottom').replace(/[^-\d\.]/g, '');
+    var height = $('.login_bg_wrapper').css('height').replace(/[^-\d\.]/g, '') - 35;
+    $('#register').css('bottom', bottom - height);
 }

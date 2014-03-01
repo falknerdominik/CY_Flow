@@ -109,3 +109,13 @@ input[name=submit] {
     width:100%;
     margin-left:-2%;
 }
+
+#projectnavigation {
+    position: relative;
+    margin-left: 20%;
+    margin-top: 3.5%;
+    margin-bottom: -2.5%;
+    z-index: 4;
+    width: 60%;
+    min-height: 15px;
+}

@@ -499,3 +499,7 @@ Sonstiges // Neu // Diksn
 
 
 /*/*/
+#register{
+    position: absolute;
+    right: 5px;
+}
