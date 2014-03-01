@@ -6,7 +6,7 @@
 
     <script src="Resources/Public/js/login/jquery.scrollTo.js" type="text/javascript"></script>
     <script src="Resources/Public/js/login/jquery.mousewheel.js" type="text/javascript"></script>
-    <script src="Resources/Public/js/login/promxxo.js" type="text/javascript"></script>
+    <script src="Resources/Public/js/login/promo.js" type="text/javascript"></script>
     <script src="http://vjs.zencdn.net/4.1/video.js" type="text/javascript"></script>
 </f:section>
 
@@ -34,10 +34,13 @@
             </div>
 
             <div id="black">
+
                 <f:form class="form-signin" action="authenticate" method="POST" name="loginform">
 
-                    <input id="formheighttext" type="text" class="form-control" placeholder="Benutzername" required autofocus name="__authentication[TYPO3][Flow][Security][Authentication][Token][UsernamePassword][username]">
-                    <input id="formheightpass" type="password" class="form-control" placeholder="Password" required name="__authentication[TYPO3][Flow][Security][Authentication][Token][UsernamePassword][password]">
+                    <input id="formheighttext" type="text" class="form-control" placeholder="Benutzername" required autofocus
+                           name="__authentication[TYPO3][Flow][Security][Authentication][Token][UsernamePassword][username]">
+                    <input id="formheightpass" type="password" class="form-control" placeholder="Password" required
+                           name="__authentication[TYPO3][Flow][Security][Authentication][Token][UsernamePassword][password]">
                     <button id="button" class="btn btn-lg btn-primary btn-block" type="submit">Connect You</button>
 
                 </f:form>

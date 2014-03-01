@@ -26,11 +26,15 @@
         <f:comment>Die Script inkl. Jquery</f:comment>
         <script src="Resources/Public/js/general/jquery.js" type="text/javascript"></script>
         <script src="Resources/Public/js/marketplace/chosen.jquery.min.js" type="text/javascript"></script>
-        <script src="Resources/Public/js/marketplace/marketplace.js" type="text/javascript"></script>
+
         <script src="Resources/Public/js/general/flashMessage.js" type="text/javascript"></script>
+
+        <script src="Resources/Public/js/marketplace/jquery.filtertable.min.js" type="text/javascript"></script>
+
+        <script src="Resources/Public/js/marketplace/marketplace.js" type="text/javascript"></script>
 	</head>
 	<body>
-        <f:render partial="general/nav" arguments="{username : username, userproject : userproject, titel : 'Marketplace'}"/>
+        <f:render partial="general/nav" arguments="{username : username, userproject : userproject, headername: 'MP'}"/>
         <f:flashMessages class="flashmessages" />
 
 		<f:render section="Content" />

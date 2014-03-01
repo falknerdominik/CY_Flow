@@ -3,6 +3,8 @@
 *****************/
 
 
+
+
 #inner_wrapper {
     margin: 0;
     padding-top: 0.4%;
@@ -44,12 +46,7 @@
     text-align:center;
 }
 
-#wrapper_header2 {
-    position:relative;
-    width:initial;
-    margin-left: 50%;
-    z-index:3;
-}
+
 
 #logo {
     font-family: 'Lato' !important;
@@ -83,7 +80,7 @@
     position:relative;
     height:100%;
     width:auto;
-    margin-right: 1%;
+    margin-right: 0.5%;
     float:right;
     text-align:center;
     z-index:4;
@@ -96,16 +93,11 @@
     color:#FFF;
 }
 
-#acc_logout {
-    margin-left: 10px;
-}
-
-
 .cat1 ul li a:hover{
     background: rgba(41, 128, 185, 1) !important;
 }
 
-.cat2 ul li a:hover  {
+.cat3 ul li a:hover  {
     background: rgba(41, 128, 185, 1) !important;
 }
 
@@ -129,7 +121,8 @@
     text-align: left;
     visibility: hidden;
     position: absolute;
-    padding-right:0px;
+    padding-right: 0px;
+    margin-top: 0.17em;
 }
 
 #logo ul li ul li, #sidemenuright ul li ul li{
@@ -164,6 +157,10 @@
     width: 50%;
 }
 
+.cat3:hover{
+    transition: ease linear -0.3s;
+}
+
 #logo ul li.cat1:hover {
     transition: ease linear -0.3s;
 }
@@ -180,14 +177,13 @@
     background: rgba(41, 128, 185, .5);
 }
 
-#sidemenuright ul li.cat3:hover > ul li a {
+#sidemenuright .cat3:hover > ul li a {
     background: rgba(41, 128, 185, .5);
 }
 
-#sidemenuright ul li.cat3:hover > ul li {
+#sidemenuright .cat3:hover > ul li {
     background: rgba(41, 128, 185, .5);
 }
-
 
 #ullogopinnwand {
     margin-top: -2.8em !important;
@@ -196,5 +192,18 @@
 }
 
 #ullogopinnwand li {
-    border-top: border-top: 1px solid white !important;
+    border-top: 1px solid white !important;
+    border-left: 1px solid white;
+}
+
+.cat1 ul li{
+    border-top: 1px solid white;
+}
+
+.cat3 ul li{
+    border-top: 1px solid white;
+}
+
+#username:hover{
+    background-color: transparent !important;
 }

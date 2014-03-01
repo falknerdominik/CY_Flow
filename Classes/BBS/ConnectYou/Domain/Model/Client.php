@@ -57,8 +57,8 @@ class Client extends \TYPO3\Party\Domain\Model\AbstractParty {
 	protected $email;
 
     /**
-     * @var \BBS\ConnectYou\Domain\Model\Project
-     * @ORM\OneToMany(mappedBy="client", cascade={"persist"})
+     * @var \Doctrine\Common\Collections\Collection<\BBS\ConnectYou\Domain\Model\Project>
+     * @ORM\OneToMany(mappedBy="client")
      */
     protected $project;
 
@@ -80,6 +80,14 @@ class Client extends \TYPO3\Party\Domain\Model\AbstractParty {
     public function getProject(){
         return $this->project;
     }
+
+    /**
+     *
+     */
+    public function clearProjects(){
+        $this->project = array();
+    }
+
 
     /**
 	 * Setzt den Namen der Person

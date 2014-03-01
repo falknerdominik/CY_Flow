@@ -2,7 +2,7 @@ resources:
   methods:
     login: 'method(BBS\ConnectYou\Controller\LoginController->.*Action())'
 
-    account: 'method(BBS\ConnectYou\Controller\AccountController->.*Action())'
+    account: 'class(BBS\ConnectYou\Controller\AccountController)'
     admin: 'method(BBS\ConnectYou\Controller\AdminController->.*Action())'
 
     marketplace: 'method(BBS\ConnectYou\Controller\MarketplaceController->.*Action())'

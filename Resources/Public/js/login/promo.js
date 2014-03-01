@@ -16,13 +16,12 @@ $(document).ready(function() {
         resizePanel();
     });
 
-});
-
-$(document).ready(function() {
     $('html, body, *').mousewheel(function(e, delta) {
         this.scrollLeft -= (delta * 1920);
         e.preventDefault();
     });
+
+
 });
 
 function resizePanel() {

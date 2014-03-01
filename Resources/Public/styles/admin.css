@@ -28,6 +28,10 @@ ul {
     padding: 0;
 }
 
+h1{
+    margin-bottom: 0.5em;
+}
+
 /*****************
 * Adminpanel // Diksn
 *****************/
@@ -59,7 +63,6 @@ label{
 
 
 
-
 hr {
     border: none;
     margin: 0 auto;
@@ -83,15 +86,32 @@ select{
 #DB_form{
     width:50%;
     float:left;
+    margin-right: 0;
 }
 
-#pdfs ul {
-    list-style-type:none;
-    font-size:16;
-    cursor:pointer;
+#wrapper{
+    float: right;
+    height: 100%;
+    width: 50%;
 }
-#pdfs li:hover {
-    color:rgba(41, 128, 185, 1);
+
+
+
+#pdfs ul, #pdfs h1 {
+    list-style-type:none;
+    font-size: 16;
+    cursor:pointer;
+    text-align: center;
+    margin-right: 20%;
+
+}
+
+#pdfs h1{
+    padding-bottom: 0;
+}
+
+a:hover {
+    background-color: rgba(41, 128, 185, 1);
 }
 
 /*****************
@@ -99,9 +119,10 @@ select{
 *****************/
 
 #pdfs li{
-    margin-bottom: 200px;
+    margin-bottom: 2.4em;
+
 }
 #pdfs a{
     color: #fff;
-    background-color: lightgray;
+    width: 70%;
 }

@@ -6,19 +6,31 @@
 
 <f:section name="Content">
     <f:flashMessages />
-    <f:link.action action="index"><p class="btn btn-default back-button">Zurück zum Market</p></f:link.action>
+
+    <f:if condition="{project.archived}">
+        <f:then>
+            <f:link.action action="archive"><p class="btn btn-default back-button">Zurück zum Archiv</p></f:link.action>
+        </f:then>
+        <f:else>
+            <f:link.action action="index"><p class="btn btn-default back-button">Zurück zum Market</p></f:link.action>
+        </f:else>
+    </f:if>
+
+    <f:security.ifHasRole role="BBS.ConnectYou:Teacher">
+        <f:then>
+            <f:link.action action="index" controller="Pinboard"><p class="btn btn-default forward-button">Zur Pinnwand</p></f:link.action>
+        </f:then>
+        <f:else>
+            <f:if condition="{isuserproject}">
+                <f:link.action action="index" controller="Pinboard"><p class="btn btn-default forward-button">Zur Pinnwand</p></f:link.action>
+            </f:if>
+        </f:else>
+    </f:security.ifHasRole>
+
     <div id="projects">
         <div id="show">
-            <!--<img src="http://placehold.it/100x100" alt="projectIMG" />-->
-
+            <img src="Resources/Public/images/marketplace/MP_Projectplaceholder.png" alt="projectIMG" class="list_img"/>
             <f:render partial="Marketplace/Properties" arguments="{project:project}" />
-
-            <f:link.action action="index">Zurück</f:link.action><br />
-            <f:security.ifHasRole role="BBS.ConnectYou:Teacher">
-                <f:then>
-                    <f:link.action action="index" controller="Pinboard" arguments="{project : project}">zur Pinnwand</f:link.action>
-                </f:then>
-            </f:security.ifHasRole>
         </div>
     </div>
 </f:section>

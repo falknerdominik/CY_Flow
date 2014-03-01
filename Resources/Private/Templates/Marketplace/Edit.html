@@ -3,7 +3,28 @@
 <f:section name="Title">Edit project "{project.name}"</f:section>
 
 <f:section name="Content">
-    <f:link.action action="index"><p class="btn btn-default back-button">Zurück zum Market</p></f:link.action>
+    <f:if condition="{project.archived}">
+        <f:then>
+            <f:link.action action="archive"><p class="btn btn-default back-button">Zurück zum Archiv</p></f:link.action>
+        </f:then>
+        <f:else>
+            <f:link.action action="index"><p class="btn btn-default back-button">Zurück zum Market</p></f:link.action>
+        </f:else>
+    </f:if>
+
+    <f:security.ifHasRole role="BBS.ConnectYou:Teacher">
+        <f:then>
+            <f:link.action action="index" controller="Pinboard"><p class="btn btn-default forward-button">Zur Pinnwand</p></f:link.action>
+        </f:then>
+        <f:else>
+            <f:if condition="{isuserproject}">
+                <f:link.action action="index" controller="Pinboard"><p class="btn btn-default forward-button">Zur Pinnwand</p></f:link.action>
+            </f:if>
+        </f:else>
+    </f:security.ifHasRole>
+
+
+
     <div id="projects">
         <div id="wrapper">
             <h1>Projekt "{project.name}" bearbeiten</h1>
@@ -11,7 +32,6 @@
                 <f:render partial="Marketplace/FormFields" arguments="{_all}" />
                 <f:form.submit value="Speichern" class="btn btn-primary"/>
             </f:form>
-            <f:link.action action="index">Zurück zum Marketplatz</f:link.action>
         </div>
     </div>
 </f:section>

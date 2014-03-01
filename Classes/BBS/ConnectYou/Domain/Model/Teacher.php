@@ -31,6 +31,7 @@ class Teacher extends \TYPO3\Party\Domain\Model\AbstractParty {
 
     /**
      * @var string
+     * @ORM\Column(nullable=true)
      */
     protected $bbsid;
 
@@ -39,7 +40,7 @@ class Teacher extends \TYPO3\Party\Domain\Model\AbstractParty {
      * @param string $bbsid
      * @return void
      */
-    public function setBbsid($bbsid){
+    public function setBbsid($bbsid = ''){
         $this->bbsid = $bbsid;
     }
 

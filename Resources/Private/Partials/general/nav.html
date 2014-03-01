@@ -6,7 +6,7 @@
 
     <div id="wrapper_header">
 
-        <img id="titlefield" src="Resources/Public/images/marketplace/mp_header_v7.png" alt="header" />
+        <img id="titlefield" src="Resources/Public/images/headers/{headername}_header.png" alt="header" />
 
     </div>
 
@@ -19,12 +19,15 @@
                         <ul>
                             <f:comment>Jeder darf auf den Marketplace ... </f:comment>
                             <li>
-                                <f:link.action action="index" controller="Marketplace">Marketplace</f:link.action>
+                                <f:link.action action="index" controller="Marketplace">Marketplatz</f:link.action>
                             </li>
 
                             <f:security.ifHasRole role="BBS.ConnectYou:Teacher">
                                 <li>
-                                    <f:link.action action="index" controller="Admin">Adminpanel</f:link.action>
+                                    <f:link.action action="index" controller="Admin">Adminbereich</f:link.action>
+                                </li>
+                                <li>
+                                    <f:link.action action="archive" controller="Marketplace">Archiv</f:link.action>
                                 </li>
                             </f:security.ifHasRole>
 
@@ -40,11 +43,11 @@
                                             <f:security.ifHasRole role="BBS.ConnectYou:Client">
                                                 <f:then>
                                                     <f:for each="{userproject}" as="p">
-                                                        <f:link.action action="index" controller="Pinboard" arguments="{project : p}">{p.name}</f:link.action>
+                                                        <li><f:link.action action="index" controller="Pinboard" arguments="{project : p}">{p.name}</f:link.action></li>
                                                     </f:for>
                                                 </f:then>
                                                 <f:else>
-                                                    <f:link.action action="index" controller="Pinboard" arguments="{project : userproject}">{userproject.name}</f:link.action>
+                                                    <li><f:link.action action="index" controller="Pinboard" arguments="{project : userproject}">{userproject.name}</f:link.action></li>
                                                 </f:else>
                                             </f:security.ifHasRole>
                                         </ul>
@@ -78,7 +81,7 @@
                        <!-- <a href="#">Hilfe</a>-->
                     </li>
                     <li class="cat3">
-                        <a href="#">{username}</a>
+                        <a id="username">{username}</a>
                         <ul>
                             <li>
                                 <f:security.ifHasRole role="BBS.ConnectYou:Client">
@@ -86,7 +89,7 @@
                                 </f:security.ifHasRole>
                             </li>
                             <li>
-                                <f:link.action action="logout" id="acc_logout" controller="Login">Logout</f:link.action>
+                                <f:link.action action="logout" controller="Login">Logout</f:link.action>
                             </li>
                         </ul>
 

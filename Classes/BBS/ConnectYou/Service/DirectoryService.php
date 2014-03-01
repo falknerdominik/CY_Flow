@@ -115,22 +115,26 @@ class DirectoryService {
 	 * @return array
 	 */
 	public function getUserEntries($username) {
-		$searchResult = ldap_search( // Durchsuche AD
-			$this->bindProvider->getLinkIdentifier(), // ds
-			$this->options['baseDn'], // BASE DN = dc=bbsrb, dc=local
-			str_replace( // Benutzername
-				'?',
-				$this->bindProvider->getFilteredUsername($username),
-				$this->options['filter']['account']
-			)
-		);
-		if ($searchResult) { // Wenn etwas gefunden wurde
-			$entries = ldap_get_entries($this->bindProvider->getLinkIdentifier(), $searchResult);
+        try{
+            $searchResult = ldap_search( // Durchsuche AD
+                $this->bindProvider->getLinkIdentifier(), // ds
+                $this->options['baseDn'], // BASE DN = dc=bbsrb, dc=local
+                str_replace( // Benutzername
+                    '?',
+                    $this->bindProvider->getFilteredUsername($username),
+                    $this->options['filter']['account']
+                )
+            );
+            if ($searchResult) { // Wenn etwas gefunden wurde
+                $entries = ldap_get_entries($this->bindProvider->getLinkIdentifier(), $searchResult);
 
-			if ($entries['count'] === 1) { // Wenn ein Eintrag gefunden wurde
-				return $entries;
-			}
-		}
+                if ($entries['count'] === 1) { // Wenn ein Eintrag gefunden wurde
+                    return $entries;
+                }
+            }
+        } catch(\Exception $e){
+            // Debugging vom Userarray hier
+        }
 	}
 
 	/**

@@ -5,6 +5,7 @@ $(window).load(function() {
         placeholder_text_multiple: "Bitte wähle jemand"
 
     });
+
     $('.chosen-single').chosen({
         placeholder_text_single: "Wähle jemanden aus.",
         no_results_text: "Leider nichts gefunden"
@@ -20,4 +21,8 @@ $(window).load(function() {
             }
         });
     });
+});
+
+$(document).ready(function() {
+    $('table').filterTable();
 });

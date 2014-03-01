@@ -108,6 +108,7 @@ class Project {
         $this->caretaker = $caretaker;
     }
 
+
     /**
 	 * @return string
 	 */
@@ -193,6 +194,21 @@ class Project {
      */
     public function addTeammember($student){
         $this->team->add($student);
+    }
+
+    /**
+     * @return void
+     */
+    public function removeTeam(){
+        $this->team->clear();
+    }
+
+    /**
+     * @param \BBS\ConnectYou\Domain\Model\Student $student
+     * @return void
+     */
+    public function removeTeammember($student){
+        $this->team->remove($student);
     }
 
     /**

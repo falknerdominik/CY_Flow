@@ -72,6 +72,7 @@ class BBSProvider extends \TYPO3\Flow\Security\Authentication\Provider\Persisted
 					if ($userarray) { // Wenn der ldapUser gebunden werden konnte und der Userarray gespeichert wurde
                         // Suche Ob ein Account schon vorhanden ist
 						$account = $this->accountRepository->findActiveByAccountIdentifierAndAuthenticationProviderName($credentials['username'], $this->name);
+
 						if (empty($account)) { // Wenn der Account NICHT in der DB vorhanden ist erstelle ihn
 
                             $defaultRole = NULL;
@@ -85,13 +86,18 @@ class BBSProvider extends \TYPO3\Flow\Security\Authentication\Provider\Persisted
 							$this->accountRepository->add($account); // Fügt den Account hinzu
 
 							$this->createParty($account, $userarray); // Erstellt die Party
+
 						}
 
+
+
 						if ($account instanceof \TYPO3\Flow\Security\Account) { // Wenn ein Account vorhanden ist
-                            if($account->getParty()->getBbsid() == $userarray['bbsid'][0]){ // Prüft ob Accont einzigartig ist
+
+                            if(in_array("BBS.ConnectYou:Teacher", $account->getRoles()) || $account->getParty()->getBbsid() == $userarray['bbsid'][0]){ // Prüft ob Accont einzigartig ist
+
                                 $account->setCredentialsSource($this->hashService->generateHmac($credentials['password'])); // Passwort Cachen
                                 // Account Updaten
-
+                                $this->updateParty($account, $userarray);
                                 $authenticationToken->setAuthenticationStatus(TokenInterface::AUTHENTICATION_SUCCESSFUL); // Login Successful
                                 $authenticationToken->setAccount($account); // Setzt den Account
                             } else { // Wenn der Account NICHT einzigartig ist (d.h. schon recycled)
@@ -109,9 +115,13 @@ class BBSProvider extends \TYPO3\Flow\Security\Authentication\Provider\Persisted
 
                                 $account = $this->accountFactory->createAccountWithPassword($credentials['username'], "", array($defaultRole), $this->name);
 
-                                $this->accountRepository->add($account); // Fügt den Account hinzu
+                                $test = $this->accountRepository->findActiveByAccountIdentifierAndAuthenticationProviderName($account->getAccountIdentifier(), $this->name);
 
-                                $this->createParty($account, $userarray); // Erstellt die Party
+                                if(!$test){
+                                    $this->accountRepository->add($account); // Fügt den Account hinzu
+
+                                    $this->createParty($account, $userarray); // Erstellt die Party
+                                }
 
                             }
 						} elseif ($authenticationToken->getAuthenticationStatus() !== TokenInterface::AUTHENTICATION_SUCCESSFUL) { // Vergleicht ob schon eingeloggt
@@ -122,6 +132,7 @@ class BBSProvider extends \TYPO3\Flow\Security\Authentication\Provider\Persisted
 					}
 
 				} catch (\Exception $exception) {
+                    echo $exception->getMessage() . $exception->getLine();
 				}
 			} else { // Falls der Server nicht Online ist fall zurück zu den gecached Passworter
 				$account = $this->accountRepository->findActiveByAccountIdentifierAndAuthenticationProviderName($credentials['username'], $this->name);
@@ -138,15 +149,16 @@ class BBSProvider extends \TYPO3\Flow\Security\Authentication\Provider\Persisted
 				}
 			}
 		} else { // Keine Benutzerdaten Gegeben
-			$authenticationToken->setAuthenticationStatus(TokenInterface::NO_CREDENTIALS_GIVEN);
+			// FÜR DEBUGGING
+			// $authenticationToken->setAuthenticationStatus(TokenInterface::NO_CREDENTIALS_GIVEN);
 		}
 	}
 
 	/**
 	 * Erstellt den Student oder Leherer Party
 	 *
-	 * @param \TYPO3\Flow\Security\Account $account The freshly created account that should be used for this party
-	 * @param array $userarray The first result returned by ldap_search
+	 * @param \TYPO3\Flow\Security\Account $account Der frisch erstellte Account
+	 * @param array $userarray Die Benutzerdaten
 	 * @return void
 	 */
 	protected function createParty(\TYPO3\Flow\Security\Account $account, array $userarray) {
@@ -155,7 +167,7 @@ class BBSProvider extends \TYPO3\Flow\Security\Authentication\Provider\Persisted
             $newTeacher->setFname($userarray['givenname'][0]);
             $newTeacher->setLname($userarray['sn'][0]);
             $newTeacher->setEmail($userarray['mail'][0]);
-            $newTeacher->setBbsid($userarray['bbsid'][0]);
+            $newTeacher->setBbsid(NULL);
 
             $account->setParty($newTeacher);
 
@@ -178,8 +190,8 @@ class BBSProvider extends \TYPO3\Flow\Security\Authentication\Provider\Persisted
     /**
      * Updatet die Informationen eines Accounts bei jedem Login
      *
-     * @param \TYPO3\Flow\Security\Account $account The freshly created account that should be used for this party
-     * @param array $userarray The first result returned by ldap_search
+     * @param \TYPO3\Flow\Security\Account $account Der zu updatende Account
+     * @param array $userarray Die Benutzerdaten
      * @return void
      */
     protected function updateParty(\TYPO3\Flow\Security\Account $account, array $userarray){
@@ -188,8 +200,8 @@ class BBSProvider extends \TYPO3\Flow\Security\Authentication\Provider\Persisted
             $newTeacher->setFname($userarray['givenname'][0]);
             $newTeacher->setLname($userarray['sn'][0]);
             $newTeacher->setEmail($userarray['mail'][0]);
-            $newTeacher->setBbsid($userarray['bbsid'][0]);
-            echo 'test';
+            $newTeacher->setBbsid();
+
             $this->teacherRepository->update($newTeacher);
 
         } else { // Wenn es ein Schüler ist

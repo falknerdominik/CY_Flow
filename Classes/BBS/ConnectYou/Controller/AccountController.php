@@ -64,6 +64,7 @@ class AccountController extends \TYPO3\Flow\Mvc\Controller\ActionController {
         $this->view->assign('party', $this->securityContext->getParty());
 	}
 
+
     /**
      * Updatet Auftraggeber
      *
@@ -86,9 +87,16 @@ class AccountController extends \TYPO3\Flow\Mvc\Controller\ActionController {
         $client->setStreetnumber($streetNumber);
         $client->setEmail($email);
         $client->setTelephone($telephone);
-
+/*
+        foreach($client->getProject() as $p){
+            $p->setClient($client);
+            $client->clearProjects();
+            $client->setProject($p);
+            $this->projectRepository->update($p);
+        }*/
 
         $this->clientRepository->update($client);
+
         $this->addFlashMessage('Ihr Benutzer wurde geupdatet');
         $this->redirect('index');
 

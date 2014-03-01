@@ -89,6 +89,13 @@ class Student extends \TYPO3\Party\Domain\Model\AbstractParty {
     }
 
     /**
+     * @return void
+     */
+    public function removeProject(){
+        $this->project = NULL;
+    }
+
+    /**
      * @param \BBS\ConnectYou\Domain\Model\Student $project
      * @return void
      */

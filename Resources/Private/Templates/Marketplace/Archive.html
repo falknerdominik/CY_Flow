@@ -1,0 +1,123 @@
+<f:layout name="Marketplace" />
+
+<f:section name="Content">
+
+    <div id="projectnavigation">
+        <f:security.ifHasRole role="BBS.ConnectYou:Client">
+            <f:then>
+                <f:link.action action="new"><img src="Resources/Public/images/marketplace/project_plus.png"  id="project_plus" /> Projekt hinzufügen</f:link.action>
+            </f:then>
+            <f:else>
+                <f:security.ifHasRole role="BBS.ConnectYou:Teacher">
+                    <f:then>
+                        <f:link.action action="new"><img src="Resources/Public/images/marketplace/project_plus.png"  id="project_plus" /> Projekt hinzufügen</f:link.action>
+                    </f:then>
+                    <f:else>
+                        <a id="project_plus"></a>
+                    </f:else>
+                </f:security.ifHasRole>
+            </f:else>
+        </f:security.ifHasRole>
+    </div>
+    <hr>
+
+    <f:comment>Die Projekte</f:comment>
+   <f:if condition="<f:count>{projects}</f:count>">
+        <f:then>
+            <div id="projects_archive">
+                <div id="wrapper_h1"><h1>Archive</h1></div></br>
+
+                <div class="datagrid">
+                    <table class="paginated">
+                        <thead>
+                            <tr>
+                                <th scope="col">Projektname</th>
+                                <th scope="col">Projekttyp</th>
+                                <th scope="col">Auftraggeber</th>
+                                <th scope="col">Jahrgang</th>
+                                <th scope="col">Betreuungslehrer</th>
+                                <th>Options</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <f:for each="{projects}" as="project">
+                            <tr>
+                                <td>{project.name}</td>
+                                <td>{project.type}</td>
+                                <td>{project.client.name}</td>
+                                <td>{project.year}</td>
+                                <td>{project.caretaker.name}</td>
+                                <td>
+                                    <f:link.action id="delete_archive" action="delete" arguments="{project : project}"><img src="Resources/Public/images/marketplace/Delete.png" alt="Löschen" /></f:link.action>
+                                    <f:link.action id="edit_archive" action="edit" arguments="{project : project}"><img src="Resources/Public/images/marketplace/Edit.png" alt="Editieren" /></f:link.action>
+                                    <f:link.action id="show_archive" action="show" arguments="{project : project}"> <img src="Resources/Public/images/marketplace/Show.png" alt="Ansehen" /> </f:link.action>
+                                </td>
+                            </tr>
+                        </f:for>
+                        <tr>
+                            <td>project.name}</td>
+                            <td>project.type}</td>
+                            <td>project.client.name}</td>
+                            <td>project.year}</td>
+                            <td>project.caretaker.name}</td>
+                        </tr>
+                        <tr>
+                            <td>project.name}</td>
+                            <td>project.type}</td>
+                            <td>project.client.name}</td>
+                            <td>project.year}</td>
+                            <td>project.caretaker.name}</td>
+                        </tr>
+                        <tr>
+                            <td>project.name}</td>
+                            <td>project.type}</td>
+                            <td>project.client.name}</td>
+                            <td>project.year}</td>
+                            <td>project.caretaker.name}</td>
+                        </tr>
+                        <tr>
+                            <td>project.name}</td>
+                            <td>project.type}</td>
+                            <td>project.client.name}</td>
+                            <td>project.year}</td>
+                            <td>project.caretaker.name}</td>
+                        </tr>
+                        <tr>
+                            <td>project.name}</td>
+                            <td>project.type}</td>
+                            <td>project.client.name}</td>
+                            <td>project.year}</td>
+                            <td>project.caretaker.name}</td>
+                        </tr>
+                        <tr>
+                            <td>project.name}</td>
+                            <td>project.type}</td>
+                            <td>project.client.name}</td>
+                            <td>project.year}</td>
+                            <td>project.caretaker.name}</td>
+                        </tr>
+                        <tr>
+                            <td>project.name}</td>
+                            <td>project.type}</td>
+                            <td>project.client.name}</td>
+                            <td>project.year}</td>
+                            <td>project.caretaker.name}</td>
+                        </tr>
+
+
+
+                        </tbody>
+                        <!--<tfoot><tr><td colspan="6"><div id="paging"><ul><li><a href="#"><span>Previous</span></a></li><li><a href="#" class="active"><span>1</span></a></li><li><a href="#"><span>2</span></a></li><li><a href="#"><span>3</span></a></li><li><a href="#"><span>4</span></a></li><li><a href="#"><span>5</span></a></li><li><a href="#"><span>Next</span></a></li></ul></div></tr></tfoot>-->
+                    </table>
+                </div>
+            </div>
+
+
+        </f:then>
+        <f:else>
+
+            <p>Noch Projekte archiviert vorhanden</p>
+
+        </f:else>
+   </f:if>
+</f:section>

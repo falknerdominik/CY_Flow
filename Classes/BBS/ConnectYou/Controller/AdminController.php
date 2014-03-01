@@ -78,7 +78,8 @@ class AdminController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	}
 
     /**
-     * Generiert mithilfe von Famelo.PDF(https://github.com/mneuhaus/Famelo.PDF) eine PDF übericht über aktuelle Projekte und gibt diese als download aus
+     * Generiert mithilfe von Famelo.PDF(https://github.com/mneuhaus/Famelo.PDF) eine PDF übericht über aktuelle Projekte und
+     * gibt diese als download aus
      *
      * @return void
      */
@@ -166,11 +167,14 @@ class AdminController extends \TYPO3\Flow\Mvc\Controller\ActionController {
      * Finde ob User Teil eines Projektes ist (Wenn ja wird ein Link zu einer Pinnwand gerendert)
      */
     protected function findUserProject(){
+        $projectDesUsers = NULL;
         // Zuerst der Party
         $party = $this->securityContext->getAccount()->getParty();
 
         // Initalisiert die Variable für spätere nutzung
-        $projectDesUsers = $party->getProject();
+        if(!in_array("BBS.ConnectYou:Teacher", $this->securityContext->getAccount()->getRoles())){
+            $projectDesUsers = $party->getProject();
+        }
 
         // Returned das Projekt ... Wenn Gefunden Sonst NULL
         return $projectDesUsers;
