@@ -182,10 +182,10 @@ class Project {
      */
     public function setTeam($team) {
         $this->team->clear();
-        foreach($team as $t){
-            $this->addTeammember($t);
-            $t->setProject($this);
-        }
+            foreach($team as $t){
+                $this->addTeammember($t);
+                $t->setProject($this);
+            }
     }
 
     /**

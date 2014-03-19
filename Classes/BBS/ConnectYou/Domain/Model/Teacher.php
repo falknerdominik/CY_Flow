@@ -30,12 +30,6 @@ class Teacher extends \TYPO3\Party\Domain\Model\AbstractParty {
 	protected $email;
 
     /**
-     * @var string
-     * @ORM\Column(nullable=true)
-     */
-    protected $bbsid;
-
-    /**
      * Setzt die bbsid
      * @param string $bbsid
      * @return void

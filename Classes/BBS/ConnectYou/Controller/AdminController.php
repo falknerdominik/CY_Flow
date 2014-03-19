@@ -84,12 +84,12 @@ class AdminController extends \TYPO3\Flow\Mvc\Controller\ActionController {
      * @return void
      */
     public function activeprojectspdfAction() {
-        $pdf = new \Famelo\PDF\Document("BBS.ConnectYou:ProjectList");
+        $pdf = new \Famelo\PDF\Document("BBS.ConnectYou:activeProjectList");
         $pdf->assign('projects', $this->projectRepository->findActiveProjects());
         $pdf->assign('date', date('d.m.Y'));
         // finde das zugewiesene Projekt wenn vorhanden
 
-        $pdf->download('ProjectList' . date('d.m.Y') . '.pdf');
+        $pdf->download('AktiveProjekte' . date('d.m.Y') . '.pdf');
 
         $this->redirect('index', 'Admin');
     }
@@ -100,12 +100,12 @@ class AdminController extends \TYPO3\Flow\Mvc\Controller\ActionController {
      * @return void
      */
     public function archivedprojectspdfAction() {
-        $pdf = new \Famelo\PDF\Document("BBS.ConnectYou:ProjectList");
+        $pdf = new \Famelo\PDF\Document("BBS.ConnectYou:archivedProjectList");
         $pdf->assign('projects', $this->projectRepository->findArchivedProjects());
         $pdf->assign('date', date('d.m.Y'));
         // finde das zugewiesene Projekt wenn vorhanden
 
-        $pdf->download('ProjectList' . date('d.m.Y') . '.pdf');
+        $pdf->download('ArchivierteProjekte' . date('d.m.Y') . '.pdf');
 
         $this->redirect('index', 'Admin');
     }

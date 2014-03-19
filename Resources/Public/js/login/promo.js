@@ -26,7 +26,7 @@ $(document).ready(function() {
 
     setCSS();
 });
-$(document).ready(function(){
+$(window).ready(function(){
     setCSS();
 });
 $(window).resize(function () {

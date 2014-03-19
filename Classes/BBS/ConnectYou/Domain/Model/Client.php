@@ -69,7 +69,7 @@ class Client extends \TYPO3\Party\Domain\Model\AbstractParty {
      * @return void
      */
     public function setProject($project){
-        $this->project = $project;
+        $this->project->add($project);
     }
 
     /**

@@ -60,6 +60,8 @@ class MarketplaceController extends ActionController {
         // finde das zugewiesene Projekt wenn vorhanden und der Nutzer kein Lehrer ist
         if(!in_array("BBS.ConnectYou:Teacher", $this->securityContext->getAccount()->getRoles()) || !in_array("BBS.ConnectYou:Client", $this->securityContext->getAccount()->getRoles())){
             $view->assign('userproject', $this->findUserProject());
+        }else {
+            $view->assign('userproject', NULL);
         }
 
         // Benutzername für Benutzermenü
@@ -87,10 +89,14 @@ class MarketplaceController extends ActionController {
             if(in_array("BBS.ConnectYou:Client", $this->securityContext->getAccount()->getRoles())){
                 if($project->getClient() == $this->securityContext->getParty()){
                     $this->view->assign('isuserproject', TRUE);
+                } else {
+                    $this->view->assign('isuserproject', FALSE);
                 }
             } else if(in_array("BBS.ConnectYou:Student", $this->securityContext->getAccount()->getRoles())){
                     if(in_array($this->securityContext->getParty(), $project->getTeam()->toArray())){
                         $this->view->assign('isuserproject', TRUE);
+                    } else {
+                        $this->view->assign('isuserproject', FALSE);
                     }
             } else{
                 $this->view->assign('isuserproject', FALSE);
@@ -108,6 +114,8 @@ class MarketplaceController extends ActionController {
         $this->view->assign('client', $this->securityContext->getAccount()->getParty());
 	}
 
+
+
 	/**
 	 * @param \BBS\ConnectYou\Domain\Model\Project $newProject
 	 * @return void
@@ -118,8 +126,15 @@ class MarketplaceController extends ActionController {
         $nextYear = date('Y') + 1;
         $newProject->setYear($curYear . "/" . substr($nextYear,2));
 
-	    $this->projectRepository->add($newProject);
-		$this->addFlashMessage('Das Projekt "' . $newProject->getName() . '" ');
+        echo 'test';
+
+        try{
+            $this->projectRepository->add($newProject);
+
+        } catch(\Exception $e){
+            echo $e->getMessage();
+        }
+	    $this->addFlashMessage('Das Projekt "' . $newProject->getName() . '" ');
 		$this->redirect('index');
 	}
 
@@ -169,6 +184,8 @@ class MarketplaceController extends ActionController {
 	 * @return void
 	 */
 	public function updateAction(\BBS\ConnectYou\Domain\Model\Project $project) {
+        $project->getClient()->setProject($project);
+        $this->clientRepository->update($project->getClient());
         $this->projectRepository->update($project);
 		$this->addFlashMessage('Projekt "' . $project->getName() . '" wurde geupdatet.');
 		$this->redirect('index');

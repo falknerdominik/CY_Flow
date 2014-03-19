@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="Resources/Public/styles/documents/ProjectList.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+
+<div id="wrapper">
+
+    <img src="Resources/Public/images/documents/AktivePJ.png" id="header" >
+</div>
+
+<label>{date}</label>
+
+
+<hr />
+
+<div id="margin">
+<table border="1">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Typ</th>
+            <th>Beschreibung</th>
+            <th>Auftraggeber</th>
+            <th>Betreuer</th>
+            <th>Team</th>
+            <th>Jahrgang</th>
+        </tr>
+    </thead>
+    <f:for each="{projects}" as="project">
+        <tbody>
+            <tr>
+                <td>{project.name}</td>
+                <td>{project.type}</td>
+                <td class="littlefont">{project.description}</td>
+                <td>{project.client.name}</td>
+                <td>{project.caretaker.fname} {project.caretaker.lname}</td>
+                <td class="littlefont">
+                    <f:if condition="<f:count>{project.team}</f:count>">
+                        <f:then>
+                            <ol>
+                                <f:for each="{project.team}" as="teammember">
+                                    <li>{teammember.fname} {teammember.lname} ({teammember.class})</li>
+                                </f:for>
+                            </ol>
+                        </f:then>
+                    </f:if>
+                </td>
+                <td>{project.year}</td>
+            </tr>
+        </tbody>
+    </f:for>
+</table>
+</div>
+
+
+</body>
+</html>
+
+

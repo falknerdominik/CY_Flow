@@ -199,7 +199,7 @@ p {
     border: 4px solid #E0E0E0 !important;
     width: 65% !important;
     height: 100% !important;
-    padding: 2%;
+    padding: 4%;
     margin: 0 auto !important;
     margin-top: 5em;
 }
@@ -228,6 +228,16 @@ p {
     font-size: 1.8em;
     font-weight: 300;
     margin-bottom: 3%;
+}
+
+#show ol{
+    text-align: left !important;
+    margin-left: 25%;
+}
+
+#show ul{
+    text-align: left !important;
+    margin-left: 33%;
 }
 
 /*****************
@@ -411,7 +421,6 @@ textarea {
 }
 
 .datagrid {
-    padding: 0.5em;
     background: #fff;
     overflow: hidden;
     border: 1px solid #666;
@@ -487,6 +496,11 @@ textarea {
     background: none;
     background-color:#3498DB;
 }
+
+.datagrid #options{
+    width: 12%;
+}
+
 div.dhtmlx_window_active, div.dhx_modal_cover_dv {
     position: fixed !important;
 }

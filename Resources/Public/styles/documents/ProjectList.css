@@ -1,47 +1,41 @@
 /*****************
-
-	* Für welche Bereiche:  Für das genieren der Projekt Liste
-
-	* Notiz:
-
-	* Author(en): Dominik Falkner
-
+* Für welche Bereiche: Für das genieren der Auftraggeber Liste
+* Notiz:
+* Author(en): Dominik Falkner
 *****************/
-
 /************
 * Allgemein *
 ************/
 @import url('http://fonts.googleapis.com/css?family=Lato:300,400,700');
-
 body{
     font-family: 'Lato';
 }
-
 header{
     margin-bottom: 1em;
 }
 
-h1 {
-    margin: 0;
-    padding: 0;
+#wrapper{
+    width:80%;
+    margin: 0 auto;
 }
 
-/*******************
-* Projektübersicht *
-********************/
-
+#margin {
+    margin-top:2em;
+}
 
 table,th,td
 {
-    border:1px solid black;
+    border:	1px solid black;
     border-collapse:collapse;
+    margin-left: auto;
+    margin-right:auto;
 }
+
 
 th,td
 {
     padding:5px;
 }
-
 th {
     font-size: 1.1em;
     text-align: left;
@@ -51,6 +45,11 @@ th {
     color: #ffffff;
 }
 
-.littlefont{
-    font-size: 10px;
+
+
+
+
+hr {
+    border: dotted 1px #666666;
+    margin: 0 auto;
 }

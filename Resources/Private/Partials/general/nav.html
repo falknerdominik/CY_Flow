@@ -42,9 +42,9 @@
                                         <ul id="ullogopinnwand">
                                             <f:security.ifHasRole role="BBS.ConnectYou:Client">
                                                 <f:then>
-                                                    <f:for each="{userproject}" as="p">
+                                                   <f:comment><f:for each="{userproject}" as="p">
                                                         <li><f:link.action action="index" controller="Pinboard" arguments="{project : p}">{p.name}</f:link.action></li>
-                                                    </f:for>
+                                                    </f:for></f:comment>
                                                 </f:then>
                                                 <f:else>
                                                     <li><f:link.action action="index" controller="Pinboard" arguments="{project : userproject}">{userproject.name}</f:link.action></li>
