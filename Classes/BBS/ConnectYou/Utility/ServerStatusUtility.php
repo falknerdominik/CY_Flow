@@ -20,7 +20,7 @@ class ServerStatusUtility {
             $fp = fsockopen(str_replace("ldap://", "", $host), $port, $errno, $erro, 5);
             return TRUE;
         } catch(\Exception $e){
-            return FALSE;
+	    return FALSE;
         }
 	}
 }

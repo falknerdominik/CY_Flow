@@ -65,7 +65,7 @@ class BBSProvider extends \TYPO3\Flow\Security\Authentication\Provider\Persisted
 		$credentials = $authenticationToken->getCredentials(); // holt die Credentials heraus (username & passwort)
 
 		if (is_array($credentials) && isset($credentials['username'])) { // prüft ob die Credentials gesetzt sind
-			if ($this->directoryService->isServerOnline()) { // Checked ob der Server Online ist
+			if ($this->directoryService->isServerOnline()) { // Checked ob der Server Online is
 				try { // Versucht die Anmeldung, Authentifizierung der User konnte sich am AD Anmelden
 					$userarray = $this->directoryService->authenticate($credentials['username'], $credentials['password']);
 
