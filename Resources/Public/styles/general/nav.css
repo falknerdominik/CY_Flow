@@ -111,6 +111,7 @@
 }
 
 #logo ul li ul{
+    width: 50%;
     margin-top: 2.6em;
     visibility: hidden;
     position: absolute;
