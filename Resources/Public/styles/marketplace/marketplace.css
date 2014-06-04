@@ -41,7 +41,7 @@ h1{
 *****************/
 
 #projects {
-    overflow:scroll;
+    overflow-y:auto;
     position:relative;
     width: 66%;
     margin: 0 auto;
