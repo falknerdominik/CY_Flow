@@ -41,6 +41,12 @@ class BBSProvider extends \TYPO3\Flow\Security\Authentication\Provider\Persisted
      */
     protected $accountFactory;
 
+    /**
+     * @Flow\Inject
+     * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
+     */
+    protected $persistenceManager;
+
 	/**
 	 * Constructor
 	 *
@@ -87,6 +93,9 @@ class BBSProvider extends \TYPO3\Flow\Security\Authentication\Provider\Persisted
 
 							$this->createParty($account, $userarray); // Erstellt die Party
 
+                            $this->persistenceManager->persistAll();
+
+
 						}
 
 
@@ -121,6 +130,8 @@ class BBSProvider extends \TYPO3\Flow\Security\Authentication\Provider\Persisted
                                     $this->accountRepository->add($account); // Fügt den Account hinzu
 
                                     $this->createParty($account, $userarray); // Erstellt die Party
+                                    $this->persistenceManager->persistAll();
+
                                 }
 
                             }
@@ -173,6 +184,8 @@ class BBSProvider extends \TYPO3\Flow\Security\Authentication\Provider\Persisted
 
             $this->teacherRepository->add($newTeacher);
 
+            $this->persistenceManager->persistAll();
+
         } else { // Wenn es ein Schüler ist
             $newStudent = new \BBS\ConnectYou\Domain\Model\Student();
             $newStudent->setFname($userarray['givenname'][0]);
@@ -184,6 +197,8 @@ class BBSProvider extends \TYPO3\Flow\Security\Authentication\Provider\Persisted
             $account->setParty($newStudent);
 
             $this->studentRepository->add($newStudent);
+
+            $this->persistenceManager->persistAll();
         }
 	}
 

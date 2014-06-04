@@ -143,7 +143,7 @@ class DirectoryService {
 	 * @return boolean
 	 */
 	public function isServerOnline() { // Prüft ob Server erreichbar
-		return \BBS\Connectyou\Utility\ServerStatusUtility::isServerOnline($this->options['host'], $this->options['port']);
+		return \BBS\ConnectYou\Utility\ServerStatusUtility::isServerOnline($this->options['host'], $this->options['port']);
 	}
 
 }
